@@ -34,6 +34,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    
    LoginPanel lp;
    AllBookIDsPanel abip;
+   SearchMemberPanel smp;
    //boolean startup = true;
    
    //list items
@@ -90,6 +91,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      // this needs to be done using loop after all the Panels are completed
 	      if(value.equals("Login")) lp.updateData();
 	      if(value.equals("All Book IDs")) abip.updateData();
+	      if(value.equals("search Member")) smp.updateData();
 	      cl.show(cards,value);
       	});
       
@@ -164,11 +166,14 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   abip = new AllBookIDsPanel();
 	   JPanel allBookIDsPanel = abip.getMainPanel();
 	   
+	   smp = new SearchMemberPanel();
+	   JPanel searchMemberId = smp.getMainPanel();
 	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
        cards.add(allBookIDsPanel, allBookIDsItem.getItemName());
        cards.add(addBookPanel, addBookItem.getItemName());
+       cards.add(searchMemberId, searchMemberItem.getItemName());
        
    }
    @Override

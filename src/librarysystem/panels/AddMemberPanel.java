@@ -13,7 +13,7 @@ import business.SystemController;
 import business.Util;
 import dataaccess.Data;
 
-public class AllBookIDsPanel implements MessageableWindow {
+public class AddMemberPanel implements MessageableWindow {
 	
 	public JPanel getMainPanel() {
 		return mainPanel;
@@ -25,7 +25,7 @@ public class AllBookIDsPanel implements MessageableWindow {
 	
 
 	
-	public AllBookIDsPanel() {
+	public AddMemberPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		defineTopPanel();
@@ -54,6 +54,8 @@ public class AllBookIDsPanel implements MessageableWindow {
 	}
 	
 	public void updateData() {
+		//populate
+//		List<String> titles = Data.bookTitles;
 		List<String> titles = new SystemController().allBookIds();
 		Collections.sort(titles);
 		StringBuilder sb = new StringBuilder();
