@@ -1,6 +1,8 @@
 package librarysystem.panels;
 
-import static librarysystem.panels.BookClub.statusBar;
+import static librarysystem.panels.MainFrame.statusBar;
+
+import javax.swing.JPanel;
 
 import business.Util;
 
@@ -17,4 +19,5 @@ public interface MessageableWindow {
 	}
 	
 	public void updateData();
+//	public JPanel getMainPanel(); // this might help in the MainFrame
 }

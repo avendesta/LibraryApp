@@ -3,14 +3,14 @@ package librarysystem;
 import java.awt.*;
 import javax.swing.*;
 
-import librarysystem.panels.BookClub;
+import librarysystem.panels.MainFrame;
 
 
 public class Main {
    public static void main(String[] args) {
       EventQueue.invokeLater(() -> 
          {
-            JFrame frame = new BookClub();
+            JFrame frame = new MainFrame();
             frame.setTitle("Book Club");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             centerFrameOnDesktop(frame);

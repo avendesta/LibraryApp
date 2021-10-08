@@ -34,9 +34,9 @@ import dataaccess.Data;
 import dataaccess.User;
 
 public class LoginPanel implements MessageableWindow {
-	BookClub bookClub;
-    public void setBookClub(BookClub club) {
-    	bookClub = club;
+	MainFrame mainFrame;
+    public void setBookClub(MainFrame club) {
+    	mainFrame = club;
     }
 	public JPanel getMainPanel() {
 		return mainPanel;
@@ -46,20 +46,20 @@ public class LoginPanel implements MessageableWindow {
 	private JPanel middleHalf;
 	//private JPanel lowerHalf;
 	private JPanel container;
-	
+
 	private JPanel topPanel;
 	private JPanel middlePanel;
 	private JPanel lowerPanel;
 	private JPanel leftTextPanel;
 	private JPanel rightTextPanel;
-	
+
 	private JTextField username;
 	private JTextField password;
 	private JLabel label;
 	private JButton loginButton;
 	private JButton logoutButton;
 	public LoginPanel() {
-		
+
 		mainPanel = new JPanel();
 		defineUpperHalf();
 		defineMiddleHalf();
@@ -188,7 +188,7 @@ public class LoginPanel implements MessageableWindow {
 					new SystemController().login(user, pwd);
 					displayInfo("Login successful!");
 					updateLeftPanel(SystemController.currentAuth);
-					bookClub.repaint();
+					mainFrame.repaint();
 				} catch(LoginException e){
 					displayError(e.getMessage());
 				}
@@ -203,11 +203,11 @@ public class LoginPanel implements MessageableWindow {
 	}
 	
 	private void librarianItems() {
-		Item[] librarianItems = bookClub.getLibrarianItems();
+		Item[] librarianItems = mainFrame.getLibrarianItems();
 		updateList(librarianItems);
 	}
 	private void adminItems() {
-		Item[] adminItems = bookClub.getAdminItems();
+		Item[] adminItems = mainFrame.getAdminItems();
 		updateList(adminItems);
 	}
 	private void bothItems() {
@@ -216,7 +216,7 @@ public class LoginPanel implements MessageableWindow {
 	
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private void updateList(Item[] items) {
-		JList<Item> linkList = bookClub.getLinkList();
+		JList<Item> linkList = mainFrame.getLinkList();
 		DefaultListModel<Item> model = (DefaultListModel)linkList.getModel();
 		int size = model.getSize();
 		if(items != null) {	

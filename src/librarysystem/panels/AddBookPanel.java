@@ -17,7 +17,7 @@ import business.Author;
 import business.Util;
 import dataaccess.Data;
 
-public class BookListPanel implements MessageableWindow {
+public class AddBookPanel implements MessageableWindow {
 	public JPanel getMainPanel() {
 		return mainPanel;
 	}
@@ -35,7 +35,7 @@ public class BookListPanel implements MessageableWindow {
 		authLastNameField.setText("");
 		titleField.setText("");	
 	}
-	public BookListPanel() {
+	public AddBookPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		defineTopPanel();

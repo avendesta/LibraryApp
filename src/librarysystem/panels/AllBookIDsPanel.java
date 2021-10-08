@@ -9,10 +9,11 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import business.SystemController;
 import business.Util;
 import dataaccess.Data;
 
-public class BookTitlesPanel implements MessageableWindow {
+public class AllBookIDsPanel implements MessageableWindow {
 	
 	public JPanel getMainPanel() {
 		return mainPanel;
@@ -24,7 +25,7 @@ public class BookTitlesPanel implements MessageableWindow {
 	
 
 	
-	public BookTitlesPanel() {
+	public AllBookIDsPanel() {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
 		defineTopPanel();
@@ -54,7 +55,8 @@ public class BookTitlesPanel implements MessageableWindow {
 	
 	public void updateData() {
 		//populate
-		List<String> titles = Data.bookTitles;
+//		List<String> titles = Data.bookTitles;
+		List<String> titles = new SystemController().allBookIds();
 		Collections.sort(titles);
 		StringBuilder sb = new StringBuilder();
 		for(String s: titles) {

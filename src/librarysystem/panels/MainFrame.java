@@ -20,11 +20,12 @@ import javax.swing.JTextArea;
 import javax.swing.ListModel;
 
 import business.Item;
+import business.SystemController;
 import business.Util;
 
 
 @SuppressWarnings("serial")
-public class BookClub extends JFrame implements MessageableWindow {
+public class MainFrame extends JFrame implements MessageableWindow {
 
    String[] links;
    JList<Item> linkList;
@@ -32,7 +33,7 @@ public class BookClub extends JFrame implements MessageableWindow {
    public static JTextArea statusBar = new JTextArea("Welcome to the Book Club!");
    
    LoginPanel lp;
-   BookTitlesPanel abip;
+   AllBookIDsPanel abip;
    //boolean startup = true;
    
    //list items
@@ -42,15 +43,15 @@ public class BookClub extends JFrame implements MessageableWindow {
    Item checkoutBookItem = new Item("Checkout Book", false);
    Item checkStatusItem = new Item("Check Status Of Book Copy", false);
    Item addMemberIDsItem = new Item("Add Member IDs", false);
-   Item AllBookIDsItem = new Item("All Book IDs", false);
+   Item allBookIDsItem = new Item("All Book IDs", false);
    		// admin previlages
    Item addMemberItem = new Item("Add Member", false);
    Item addBookItem = new Item("Add Book", false);
    Item addBookCopyItem = new Item("Add Book Copy", false);
    
-   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, AllBookIDsItem};
+   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem};
    Item[] adminItems = {loginItem, addMemberItem, addBookItem, addBookCopyItem};
-   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, AllBookIDsItem, 
+   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, 
 		   						addMemberItem, addBookItem, addBookCopyItem};
    Item[] commonItems = {loginItem};
    
@@ -66,7 +67,7 @@ public class BookClub extends JFrame implements MessageableWindow {
    }
 
    
-   public BookClub() {
+   public MainFrame() {
 	  Util.adjustLabelFont(statusBar, Util.DARK_BLUE, true);
       setSize(600, 450);
       
@@ -86,10 +87,10 @@ public class BookClub extends JFrame implements MessageableWindow {
     		  value = loginItem.getItemName();
     		  linkList.setSelectedIndex(0);
     	  }
-	      if(value.equals("View Titles")) abip.updateData();
+	      // this needs to be done using loop after all the Panels are completed
+	      if(value.equals("Login")) lp.updateData();
+	      if(value.equals("All Book IDs")) abip.updateData();
 	      cl.show(cards,value);
-	   
-   
       	});
       
 
@@ -155,18 +156,18 @@ public class BookClub extends JFrame implements MessageableWindow {
 	   
 	   
 	   //add book
-	   BookListPanel abp = new BookListPanel();
+	   AddBookPanel abp = new AddBookPanel();
 	   JPanel addBookPanel = abp.getMainPanel();
 	   
 	   
 	   //all book IDs
-	   abip = new BookTitlesPanel();
-	   JPanel bookTitlesPanel = abip.getMainPanel();
+	   abip = new AllBookIDsPanel();
+	   JPanel allBookIDsPanel = abip.getMainPanel();
 	   
 	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
-       cards.add(bookTitlesPanel, AllBookIDsItem.getItemName());
+       cards.add(allBookIDsPanel, allBookIDsItem.getItemName());
        cards.add(addBookPanel, addBookItem.getItemName());
        
    }
