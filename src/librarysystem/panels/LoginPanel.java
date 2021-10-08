@@ -30,7 +30,6 @@ import business.LoginException;
 import business.SystemController;
 import business.Util;
 import dataaccess.Auth;
-import dataaccess.Data;
 import dataaccess.User;
 
 public class LoginPanel implements MessageableWindow {
@@ -165,25 +164,7 @@ public class LoginPanel implements MessageableWindow {
 			
 				String user = username.getText().trim();
 				String pwd = password.getText().trim();
-//				if(user.length() == 0 || pwd.length() == 0) {
-//					displayError("Id and Password fields must be nonempty");
-//				}
-//				else { 
-//					User login = new User(user,pwd, null);
-//					
-//					List<User> list = Data.logins;
-//					User u = Util.findUser(list, login);
-//					if(u == null) {
-//						displayError("Login failed!");
-//					}
-//					else {
-//						Data.currentAuth = u.getAuthorization();
-//						displayInfo("Login successful");
-//						updateLeftPanel(Data.currentAuth);
-//						bookClub.repaint();
-//					}
-//					
-//				}
+
 				try {
 					new SystemController().login(user, pwd);
 					displayInfo("Login successful!");

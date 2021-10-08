@@ -55,8 +55,16 @@ public class DataAccessFacade implements DataAccess {
 		//   userId -> User
 		return (HashMap<String, User>)readFromStorage(StorageType.USERS);
 	}
-	
-	
+	//
+	public void loadNewBookMap(List<Book> bookList) {
+		loadBookMap(bookList);
+	}
+	public void loadNewUserMap(List<User> userList) {
+		loadUserMap(userList);
+	}
+	public void loadNewMemberMap(List<LibraryMember> memberList) {
+		loadMemberMap(memberList);
+	}
 	/////load methods - these place test data into the storage area
 	///// - used just once at startup  
 	

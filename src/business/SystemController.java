@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,8 +51,32 @@ public class SystemController implements ControllerInterface {
 		HashMap<String, LibraryMember> memberHashMap = da.readMemberMap();
 		LibraryMember libraryMember = memberHashMap.get(id);
 		if(libraryMember == null)
-			return "";
+			return null;
 		return libraryMember.toString();
+	}
+	
+	@Override
+	public String getAllBookInfo() {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> booksHashMap = da.readBooksMap();
+		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
+		if(allBookList == null)
+			return null;
+		return Arrays.toString( allBookList.toArray());
+	}
+	
+	// addMultipleBookCopy needs to save the book copy to database
+	@Override
+	public boolean addMultipleBookCopy(String id, int numberOfCopy) {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> booksHashMap = da.readBooksMap();
+		Book book = booksHashMap.get(id);
+		if(book == null)
+			return false;
+		book.addMultipleCopy(numberOfCopy);
+		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
+		da.loadNewBookMap(allBookList);
+		return true;
 	}
 	
 	

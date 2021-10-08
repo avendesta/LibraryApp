@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import business.SystemController;
 import business.Util;
-import dataaccess.Data;
 
 public class AllBookIDsPanel implements MessageableWindow {
 	
@@ -54,13 +53,8 @@ public class AllBookIDsPanel implements MessageableWindow {
 	}
 	
 	public void updateData() {
-		List<String> titles = new SystemController().allBookIds();
-		Collections.sort(titles);
-		StringBuilder sb = new StringBuilder();
-		for(String s: titles) {
-			sb.append(s + "\n");
-		}
-		textArea.setText(sb.toString());
+		String titles = new SystemController().getAllBookInfo();
+		textArea.setText(titles);
 		mainPanel.repaint();
 	}
 	

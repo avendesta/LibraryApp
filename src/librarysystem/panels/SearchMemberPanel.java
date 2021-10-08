@@ -58,14 +58,11 @@ public class SearchMemberPanel implements MessageableWindow {
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(35, 111, 385, 11);
 		mainPanel.add(separator);
-		
-//		resultLabel = new JLabel("Result");
-//		resultLabel.setVerticalAlignment(SwingConstants.TOP);
-//		resultLabel.setBounds(53, 128, 356, 116);
-//		mainPanel.add(resultLabel);
+
 		infoTextArea = new JTextArea();
 		infoTextArea.setBounds(45, 134, 358, 114);
 		infoTextArea.setColumns(10);
+		infoTextArea.setLineWrap(true);
 		mainPanel.add(infoTextArea);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -81,12 +78,11 @@ public class SearchMemberPanel implements MessageableWindow {
 		String memberId = searchMemberTextField.getText().trim();
 		String memberInfo = new SystemController().getMemberInfo(memberId);
 		System.out.println(memberId + " " + memberInfo);
-		if(memberInfo != "") {
+		if(memberInfo != null) {
 			infoTextArea.setText(memberInfo);
 			displayInfo("Member Found");
 		}
 		else {
-			infoTextArea.setText("Member Not Found");
 			displayError("Member Not Found");
 		}
 		mainPanel.repaint();		

@@ -11,7 +11,7 @@ public class Main {
       EventQueue.invokeLater(() -> 
          {
             JFrame frame = new MainFrame();
-            frame.setTitle("Book Club");
+            frame.setTitle("LibraryApp already named");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             centerFrameOnDesktop(frame);
             frame.setVisible(true);

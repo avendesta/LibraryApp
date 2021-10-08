@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import business.SystemController;
 import business.Util;
-import dataaccess.Data;
 
 public class AddMemberPanel implements MessageableWindow {
 	

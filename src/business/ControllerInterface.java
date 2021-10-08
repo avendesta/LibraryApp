@@ -11,4 +11,6 @@ public interface ControllerInterface {
 	public List<String> allMemberIds();
 	public List<String> allBookIds();
 	public String getMemberInfo(String id);
+	public String getAllBookInfo();
+	public boolean addMultipleBookCopy(String id, int numberOfCopy);
 }
