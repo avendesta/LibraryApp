@@ -2,25 +2,29 @@ package business;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import dataaccess.DataAccess;
 import dataaccess.DataAccessFacade;
 
 final public class LibraryMember extends Person implements Serializable {
 	private String memberId;
+	private List<Entry> checkoutRecord;
 	
 	public LibraryMember(String memberId, String fname, String lname, String tel,Address add) {
 		super(fname,lname, tel, add);
-		this.memberId = memberId;		
+		this.memberId = memberId;
+		checkoutRecord = new ArrayList<Entry>();
 	}
 	
 	
 	public String getMemberId() {
 		return memberId;
 	}
-
-	
+	public void addEntry(Entry e) {
+		checkoutRecord.add(e);
+	}
 	
 	@Override
 	public String toString() {
