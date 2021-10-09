@@ -91,18 +91,17 @@ public class SystemController implements ControllerInterface {
 		}
 		Book newBook = new Book(isbn, title, maxCheckoutDays, bookAuthors);
 		HashMap<String, Book> booksHashMap = da.readBooksMap();
-
-		Book bookFound = booksHashMap.get(isbn);
-		if(bookFound != null)
-			return false;
 		booksHashMap.put(isbn, newBook);
+		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
+		da.loadNewBookMap(allBookList);
 		return true;
-//		if(book == null)
+
+//		Book bookFound = booksHashMap.get(isbn);
+//		if(bookFound != null)
 //			return false;
-//		book.addMultipleCopy(numberOfCopy);
-//		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
-//		da.loadNewBookMap(allBookList);
+//		booksHashMap.put(isbn, newBook);
 //		return true;
+
 	}
 	
 	
