@@ -36,6 +36,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    AllBookIDsPanel abip;
    SearchMemberPanel smp;
    AddBookCopyPanel abcp;
+   AddMemberPanel amp;
    //boolean startup = true;
    
    //list items
@@ -94,6 +95,8 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      if(value.equals("All Book IDs")) abip.updateData();
 	      if(value.equals("search Member")) smp.updateData();
 	      if(value.equals("Add Book Copy")) abcp.updateData();
+	      if(value.equals("Add Member")) amp.updateData();
+	      
 	      cl.show(cards,value);
       	});
       
@@ -168,11 +171,17 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   abip = new AllBookIDsPanel();
 	   JPanel allBookIDsPanel = abip.getMainPanel();
 	   
+	   // search member
 	   smp = new SearchMemberPanel();
 	   JPanel searchMemberIdPanel = smp.getMainPanel();
-	   
+
+	   // add book copy
 	   abcp = new AddBookCopyPanel();
 	   JPanel addBookCopyPanel = abcp.getMainPanel();
+
+	   // add member
+	   amp = new AddMemberPanel();
+	   JPanel addMemberPanel = amp.getMainPanel();
 	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
@@ -180,6 +189,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
        cards.add(addBookPanel, addBookItem.getItemName());
        cards.add(searchMemberIdPanel, searchMemberItem.getItemName());
        cards.add(addBookCopyPanel, addBookCopyItem.getItemName());
+       cards.add(addMemberPanel, addMemberItem.getItemName());
    }
    @Override
    public void updateData() {

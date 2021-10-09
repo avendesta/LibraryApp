@@ -95,14 +95,14 @@ public class SystemController implements ControllerInterface {
 		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
 		da.loadNewBookMap(allBookList);
 		return true;
-
-//		Book bookFound = booksHashMap.get(isbn);
-//		if(bookFound != null)
-//			return false;
-//		booksHashMap.put(isbn, newBook);
-//		return true;
-
 	}
-	
+	@Override
+	public boolean addMember(String memberId, String fname, String lname, String tel,Address add) {
+		// IMPLEMENT THIS
+//		DataAccess da = new DataAccessFacade();
+//		HashMap<String, LibraryMember> membersHashMap = da.readMemberMap();
+//		List<LibraryMember> libraryMembers = new ArrayList<LibraryMember>();
+		return true;
+	}
 	
 }

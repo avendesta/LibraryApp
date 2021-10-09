@@ -10,12 +10,12 @@ import dataaccess.DataAccessFacade;
 
 final public class LibraryMember extends Person implements Serializable {
 	private String memberId;
-	private List<Entry> checkoutRecord;
+	private CheckoutRecord memberCheckoutRecord;
 	
 	public LibraryMember(String memberId, String fname, String lname, String tel,Address add) {
 		super(fname,lname, tel, add);
 		this.memberId = memberId;
-		checkoutRecord = new ArrayList<Entry>();
+		memberCheckoutRecord = new CheckoutRecord();
 	}
 	
 	
@@ -23,7 +23,7 @@ final public class LibraryMember extends Person implements Serializable {
 		return memberId;
 	}
 	public void addEntry(Entry e) {
-		checkoutRecord.add(e);
+		memberCheckoutRecord.addEntry(e);
 	}
 	
 	@Override
