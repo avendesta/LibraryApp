@@ -98,10 +98,12 @@ public class SystemController implements ControllerInterface {
 	}
 	@Override
 	public boolean addMember(String memberId, String fname, String lname, String tel,Address add) {
-		// IMPLEMENT THIS
-//		DataAccess da = new DataAccessFacade();
-//		HashMap<String, LibraryMember> membersHashMap = da.readMemberMap();
-//		List<LibraryMember> libraryMembers = new ArrayList<LibraryMember>();
+		LibraryMember newMember = new LibraryMember(memberId, fname, lname, tel, add);
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> membersHashMap = da.readMemberMap();
+		membersHashMap.put(memberId, newMember);
+		List<LibraryMember> allMembersList = new ArrayList<LibraryMember>(membersHashMap.values());
+		da.loadNewMemberMap(allMembersList);
 		return true;
 	}
 	

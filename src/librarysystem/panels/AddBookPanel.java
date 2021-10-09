@@ -113,16 +113,6 @@ public JPanel getMainPanel() {
 	
 	private void attachAddButtonListener(JButton btn) {
 		btn.addActionListener(evt -> {
-//			String bookId = bookIdTextField.getText().trim();
-//			int numberOfCopy = Integer.parseInt(numberOfCopyTextField.getText().trim());
-//			// addMultipleBookCopy needs to save the book copy to database
-//			boolean done = new SystemController().addMultipleBookCopy(bookId, numberOfCopy);
-//			if(!done) {
-//				displayError("Book not found");
-//				return;
-//			}
-//			displayInfo("A copy added!!");
-//			updateData();
 			String isbn = isbnTextField.getText().trim();
 			String title = titleTextField.getText().trim();
 			boolean dayLimit7 = dayLimit7Button.isEnabled();

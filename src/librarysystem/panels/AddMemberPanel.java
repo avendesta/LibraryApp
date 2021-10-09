@@ -16,12 +16,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import business.Address;
+import business.SystemController;
+
 public class AddMemberPanel implements MessageableWindow {
 	private JPanel mainPanel;
 	private JTextField fnameTextField;
 	private JTextField lnameTextField;
 	private JTextField streetTextField;
-	private JTextField citytextField;
+	private JTextField cityTextField;
 	private JTextField stateTextField;
 	private JTextField zipTextField;
 	private JTextField cellphoneTextField;
@@ -59,12 +62,12 @@ public class AddMemberPanel implements MessageableWindow {
 		gbc_title.gridy = 4;
 		mainPanel.add(title, gbc_title);
 		
-		JLabel lblNewLabel_11 = new JLabel("Member ID");
+		JLabel memberIdLabel = new JLabel("Member ID");
 		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
 		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_11.gridx = 4;
 		gbc_lblNewLabel_11.gridy = 5;
-		mainPanel.add(lblNewLabel_11, gbc_lblNewLabel_11);
+		mainPanel.add(memberIdLabel, gbc_lblNewLabel_11);
 		
 		idTextField = new JTextField();
 		GridBagConstraints gbc_idTextField = new GridBagConstraints();
@@ -131,14 +134,14 @@ public class AddMemberPanel implements MessageableWindow {
 		gbc_lblNewLabel_6.gridy = 9;
 		mainPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		citytextField = new JTextField();
+		cityTextField = new JTextField();
 		GridBagConstraints gbc_citytextField = new GridBagConstraints();
 		gbc_citytextField.insets = new Insets(0, 0, 5, 5);
 		gbc_citytextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_citytextField.gridx = 6;
 		gbc_citytextField.gridy = 9;
-		mainPanel.add(citytextField, gbc_citytextField);
-		citytextField.setColumns(10);
+		mainPanel.add(cityTextField, gbc_citytextField);
+		cityTextField.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("State");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
@@ -200,14 +203,43 @@ public class AddMemberPanel implements MessageableWindow {
 		gbc_addMemberButton.insets = new Insets(0, 0, 5, 5);
 		gbc_addMemberButton.gridx = 8;
 		gbc_addMemberButton.gridy = 14;
+		attachAddButtonListener(addMemberButton);
 		mainPanel.add(addMemberButton, gbc_addMemberButton);
 		
-
 	}
 
+	private void attachAddButtonListener(JButton btn) {
+		btn.addActionListener(evt -> {
+			String memberId = idTextField.getText().trim();
+			String fName = fnameTextField.getText().trim();
+			String lName = lnameTextField.getText().trim();
+			String street = streetTextField.getText().trim();
+			String city = cityTextField.getText().trim();
+			String state = stateTextField.getText().trim();
+			String zip = zipTextField.getText().trim();
+			String phoneNumber = cellphoneTextField.getText().trim();
+			Address address = new Address(street, city, state, zip);
+			boolean done=new SystemController().addMember(memberId, fName, lName, phoneNumber, address);
+			if(!done) {
+				displayError("new member NOT added!!");
+				return;
+			}
+			displayInfo("new member added successfully");
+			updateData();
+		});
+	}
+
+	
 	@Override
 	public void updateData() {
-		
+		idTextField.setText("");
+		fnameTextField.setText("");
+		lnameTextField.setText("");
+		streetTextField.setText("");
+		cityTextField.setText("");
+		stateTextField.setText("");
+		zipTextField.setText("");
+		cellphoneTextField.setText("");
 	}
 
 }
