@@ -3,6 +3,9 @@ package librarysystem.panels;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import business.SystemController;
+
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +22,10 @@ private JTextField authorTextField1;
 private JTextField authorTextField2;
 private JTextField authorTextField3;
 private JTextField isbnTextField;
+private JLabel bookTitleLabel;
+private JButton addButton;
+private JRadioButton dayLimit7Button;
+private JRadioButton dayLimit21Button;
 
 public JPanel getMainPanel() {
 	return mainPanel;
@@ -36,7 +43,7 @@ public JPanel getMainPanel() {
 		title.setBounds(19, 16, 99, 16);
 		mainPanel.add(title);
 		
-		JLabel bookTitleLabel = new JLabel("Book Title");
+		bookTitleLabel = new JLabel("Book Title");
 		bookTitleLabel.setBounds(50, 44, 75, 16);
 		mainPanel.add(bookTitleLabel);
 		
@@ -85,16 +92,17 @@ public JPanel getMainPanel() {
 		mainPanel.add(isbnTextField);
 		isbnTextField.setColumns(10);
 		
-		JRadioButton dayLimit7Button = new JRadioButton("7 days");
+		dayLimit7Button = new JRadioButton("7 days");
 		dayLimit7Button.setBounds(190, 99, 141, 23);
 		mainPanel.add(dayLimit7Button);
 		
-		JRadioButton dayLimit21Button = new JRadioButton("21 days");
+		dayLimit21Button = new JRadioButton("21 days");
 		dayLimit21Button.setBounds(190, 130, 141, 23);
 		mainPanel.add(dayLimit21Button);
 		
-		JButton addButton = new JButton("Add");
+		addButton = new JButton("Add");
 		addButton.setBounds(292, 248, 117, 29);
+		attachAddButtonListener(addButton);
 		mainPanel.add(addButton);
 		
 		JSeparator separator = new JSeparator();
@@ -102,6 +110,36 @@ public JPanel getMainPanel() {
 		mainPanel.add(separator);
 
 	}
+	
+	private void attachAddButtonListener(JButton btn) {
+		btn.addActionListener(evt -> {
+//			String bookId = bookIdTextField.getText().trim();
+//			int numberOfCopy = Integer.parseInt(numberOfCopyTextField.getText().trim());
+//			// addMultipleBookCopy needs to save the book copy to database
+//			boolean done = new SystemController().addMultipleBookCopy(bookId, numberOfCopy);
+//			if(!done) {
+//				displayError("Book not found");
+//				return;
+//			}
+//			displayInfo("A copy added!!");
+//			updateData();
+			String isbn = isbnTextField.getText().trim();
+			String title = titleTextField.getText().trim();
+			boolean dayLimit7 = dayLimit7Button.isEnabled();
+			boolean dayLimit21 = dayLimit21Button.isEnabled();
+			int maxCheckoutDays = dayLimit7 ? 7:21;
+			String authorIds[] = {authorTextField1.getText().trim(), authorTextField2.getText().trim(), authorTextField3.getText().trim()};
+			
+			boolean done=new SystemController().addBook(isbn, title, maxCheckoutDays, authorIds);
+			if(!done) {
+				displayError("Book not added!!");
+				return;
+			}
+			displayInfo("Book added");
+			updateData();
+		});
+	}
+	
 	@Override
 	public void updateData() {
 		// TODO Auto-generated method stub

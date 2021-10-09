@@ -79,5 +79,31 @@ public class SystemController implements ControllerInterface {
 		return true;
 	}
 	
+	@Override
+	public boolean addBook(String isbn, String title, int maxCheckoutDays, String[] authorIds) {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Author> authorsHashMap = da.readAuthorMap();
+		List<Author> bookAuthors = new ArrayList<Author>();
+		for(String id: authorIds) {
+			if(id != null) {
+				bookAuthors.add(authorsHashMap.get(id));
+			}
+		}
+		Book newBook = new Book(isbn, title, maxCheckoutDays, bookAuthors);
+		HashMap<String, Book> booksHashMap = da.readBooksMap();
+
+		Book bookFound = booksHashMap.get(isbn);
+		if(bookFound != null)
+			return false;
+		booksHashMap.put(isbn, newBook);
+		return true;
+//		if(book == null)
+//			return false;
+//		book.addMultipleCopy(numberOfCopy);
+//		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
+//		da.loadNewBookMap(allBookList);
+//		return true;
+	}
+	
 	
 }

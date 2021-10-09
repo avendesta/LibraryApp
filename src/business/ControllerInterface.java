@@ -12,5 +12,6 @@ public interface ControllerInterface {
 	public List<String> allBookIds();
 	public String getMemberInfo(String id);
 	public String getAllBookInfo();
+	public boolean addBook(String isbn, String title, int maxCheckoutDays, String[] authorIds);
 	public boolean addMultipleBookCopy(String id, int numberOfCopy);
 }
