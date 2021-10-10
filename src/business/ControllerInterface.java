@@ -1,5 +1,6 @@
 package business;
 
+import java.util.HashMap;
 import java.util.List;
 
 import business.Book;
@@ -15,4 +16,7 @@ public interface ControllerInterface {
 	public boolean addMultipleBookCopy(String id, int numberOfCopy);
 	public boolean addBook(String isbn, String title, int maxCheckoutDays, String[] authorIds);
 	public boolean addMember(String memberId, String fname, String lname, String tel, Address add);
+	//
+	public String getMemberCheckoutEntry(String id);
+	public LibraryMember getMember(String memberId);
 }

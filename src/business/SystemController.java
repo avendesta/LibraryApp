@@ -107,4 +107,27 @@ public class SystemController implements ControllerInterface {
 		return true;
 	}
 	
+	@Override
+	public String getMemberCheckoutEntry(String id) {
+		DataAccess da = new DataAccessFacade();
+
+//		HashMap<String, LibraryMember> memberHashMap = da.readMemberMap();
+//		LibraryMember libraryMember = memberHashMap.get(id);
+
+		HashMap<String, CheckoutEntry> memberEntryHashMap = da.readMemberCheckoutEntryMap();
+		System.out.println(memberEntryHashMap.get(memberEntryHashMap.keySet().toArray()[0]));
+		CheckoutEntry memberEntry = memberEntryHashMap.get(id);
+		System.out.println(memberEntry); // null
+		if(memberEntry == null)
+			return null;
+		return memberEntry.toString();
+	}
+	@Override
+	public LibraryMember getMember(String memberId) {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberHashMap = da.readMemberMap();
+		LibraryMember libraryMember = memberHashMap.get(memberId);
+		return libraryMember;
+	}
+	
 }

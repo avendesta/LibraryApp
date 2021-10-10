@@ -12,6 +12,7 @@ import java.util.List;
 import business.Author;
 import business.Book;
 import business.BookCopy;
+import business.CheckoutEntry;
 import business.LibraryMember;
 import dataaccess.DataAccessFacade.StorageType;
 
@@ -19,7 +20,7 @@ import dataaccess.DataAccessFacade.StorageType;
 public class DataAccessFacade implements DataAccess {
 	
 	enum StorageType {
-		BOOKS, MEMBERS, USERS, AUTHORS;
+		BOOKS, MEMBERS, USERS, AUTHORS, MEMBER_CHECKOUTENTRIES;
 	}
 	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
@@ -64,6 +65,13 @@ public class DataAccessFacade implements DataAccess {
 		return (HashMap<String, Author>)readFromStorage(StorageType.AUTHORS);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, CheckoutEntry> readMemberCheckoutEntryMap() {
+		//Returns a Map with name/value pairs being
+		//   libraryMember -> checkoutEntry of the library member
+		return (HashMap<String, CheckoutEntry>)readFromStorage(StorageType.MEMBER_CHECKOUTENTRIES);
+	}
+	
 	//
 	public void loadNewBookMap(List<Book> bookList) {
 		loadBookMap(bookList);
@@ -73,6 +81,11 @@ public class DataAccessFacade implements DataAccess {
 	}
 	public void loadNewMemberMap(List<LibraryMember> memberList) {
 		loadMemberMap(memberList);
+	}
+	
+	public void loadNewMemberCheckoutEntryMap(List<CheckoutEntry> memberList) {
+//		loadMemberCheckoutEntryMap(memberList);
+		loadMemberCheckoutEntryMap(memberList);
 	}
 	/////load methods - these place test data into the storage area
 	///// - used just once at startup  
@@ -99,6 +112,12 @@ public class DataAccessFacade implements DataAccess {
 		HashMap<String, Author> authors = new HashMap<String, Author>();
 		authorList.forEach(author -> authors.put(author.getAuthorId(), author));
 		saveToStorage(StorageType.AUTHORS, authors);
+	}
+	
+	static void loadMemberCheckoutEntryMap(List<CheckoutEntry> entryList) {
+		HashMap<String, CheckoutEntry> entries = new HashMap<String, CheckoutEntry>();
+		entryList.forEach(entry -> entries.put(entry.getLibraryMember().getMemberId(), entry));
+		saveToStorage(StorageType.MEMBER_CHECKOUTENTRIES, entries);
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {
