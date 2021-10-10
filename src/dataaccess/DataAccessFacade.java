@@ -14,13 +14,14 @@ import business.Book;
 import business.BookCopy;
 import business.CheckoutEntry;
 import business.LibraryMember;
+import business.Records;
 import dataaccess.DataAccessFacade.StorageType;
 
 
 public class DataAccessFacade implements DataAccess {
 	
 	enum StorageType {
-		BOOKS, MEMBERS, USERS, AUTHORS, MEMBER_CHECKOUTENTRIES;
+		BOOKS, MEMBERS, USERS, AUTHORS, MEMBER_CHECKOUTENTRIES, MEMBER_RECORDS;
 	}
 	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
@@ -68,8 +69,15 @@ public class DataAccessFacade implements DataAccess {
 	@SuppressWarnings("unchecked")
 	public HashMap<String, CheckoutEntry> readMemberCheckoutEntryMap() {
 		//Returns a Map with name/value pairs being
-		//   libraryMember -> checkoutEntry of the library member
+		//   libraryMemberId -> checkoutEntry of the library member
 		return (HashMap<String, CheckoutEntry>)readFromStorage(StorageType.MEMBER_CHECKOUTENTRIES);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Records> readMemberRecordsMap() {
+		//Returns a Map with name/value pairs being
+		//   libraryMemberId -> records of the library member
+		return (HashMap<String, Records>)readFromStorage(StorageType.MEMBER_RECORDS);
 	}
 	
 	//
@@ -84,9 +92,13 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	public void loadNewMemberCheckoutEntryMap(List<CheckoutEntry> memberList) {
-//		loadMemberCheckoutEntryMap(memberList);
 		loadMemberCheckoutEntryMap(memberList);
 	}
+	
+	public void loadNewMemberRecordsMap(List<Records> recordsList){
+		loadMemberRecordsMap(recordsList);
+	}
+	
 	/////load methods - these place test data into the storage area
 	///// - used just once at startup  
 	
@@ -118,6 +130,12 @@ public class DataAccessFacade implements DataAccess {
 		HashMap<String, CheckoutEntry> entries = new HashMap<String, CheckoutEntry>();
 		entryList.forEach(entry -> entries.put(entry.getLibraryMember().getMemberId(), entry));
 		saveToStorage(StorageType.MEMBER_CHECKOUTENTRIES, entries);
+	}
+	
+	static void loadMemberRecordsMap(List<Records> recordsList) {
+		HashMap<String, Records> records = new HashMap<String, Records>();
+		recordsList.forEach(rs -> records.put(rs.getLibraryMemberId(), rs));
+		saveToStorage(StorageType.MEMBER_RECORDS, records);
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {

@@ -21,6 +21,9 @@ public class CheckoutEntry implements Serializable {
 	}
 
 
+	public BookCopy getBookCopy() {
+		return bookCopy;
+	}
 	public boolean isOverdue() {
 		LocalDate today = LocalDate.now();
 		return dueDate.isAfter(today);

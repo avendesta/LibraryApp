@@ -1,5 +1,6 @@
 package dataaccess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +10,7 @@ import business.Author;
 import business.Book;
 import business.CheckoutEntry;
 import business.LibraryMember;
+import business.Records;
 
 /**
  * This class loads data into the data repository and also sets up the storage
@@ -19,7 +21,7 @@ import business.LibraryMember;
  * 
  *
  */
-public class TestData {
+public class TestData implements Serializable{
 
 	public static void main(String[] args) {
 		TestData td = new TestData();
@@ -28,11 +30,13 @@ public class TestData {
 		td.userData();
 		td.authorData();
 		td.checkoutEntryData();
+		td.recordData();
 
 		DataAccess da = new DataAccessFacade();
 //		System.out.println(da.readBooksMap());
 //		System.out.println(da.readUserMap());
-		System.out.println(da.readMemberCheckoutEntryMap());
+//		System.out.println(da.readMemberCheckoutEntryMap());
+		System.out.println(da.readMemberRecordsMap());
 	}
 
 	/// create books
@@ -88,6 +92,58 @@ public class TestData {
 		};
 		DataAccessFacade.loadMemberCheckoutEntryMap(allMemberCheckoutEntries);
 	}
+	
+	@SuppressWarnings("serial")
+	public void recordData() {
+		@SuppressWarnings("serial")
+		List<CheckoutEntry> entryList1 = new ArrayList<CheckoutEntry>() {
+			{
+				add(new CheckoutEntry(members.get(0), allBooks.get(0).getCopy(1)));
+				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(0), allBooks.get(2).getCopy(1)));
+				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1)));
+			}
+		};
+		
+		@SuppressWarnings("serial")
+		List<CheckoutEntry> entryList2 = new ArrayList<CheckoutEntry>() {
+			{
+				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(1)));
+				add(new CheckoutEntry(members.get(1), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(1)));
+				add(new CheckoutEntry(members.get(1), allBooks.get(1).getCopy(1)));
+			}
+		};
+		@SuppressWarnings("serial")
+		List<CheckoutEntry> entryList3 = new ArrayList<CheckoutEntry>() {
+			{
+				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(1)));
+			}
+		};
+		@SuppressWarnings("serial")
+		List<CheckoutEntry> entryList4 = new ArrayList<CheckoutEntry>() {
+			{
+				add(new CheckoutEntry(members.get(3), allBooks.get(0).getCopy(1)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(2).getCopy(1)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1)));
+			}
+		};
+
+		@SuppressWarnings("serial")
+		List<Records> records = new ArrayList<Records>() {
+			{
+				add(new Records("1", entryList1));
+				add(new Records("2", entryList2));
+				add(new Records("3", entryList3));
+				add(new Records("4", entryList4));
+			}
+		};
+		DataAccessFacade.loadMemberRecordsMap(records);
+	}
 
 	///////////// DATA //////////////
 
@@ -135,6 +191,5 @@ public class TestData {
 			add(new User("1", "1", Auth.BOTH));
 		}
 	};
-
 
 }

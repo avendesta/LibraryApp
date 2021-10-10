@@ -7,6 +7,7 @@ import business.Author;
 import business.Book;
 import business.CheckoutEntry;
 import business.LibraryMember;
+import business.Records;
 import dataaccess.DataAccessFacade.StorageType;
 
 public interface DataAccess { 
@@ -16,6 +17,7 @@ public interface DataAccess {
 	
 	public HashMap<String, Author> readAuthorMap();
 	public HashMap<String, CheckoutEntry> readMemberCheckoutEntryMap();
+	public HashMap<String, Records> readMemberRecordsMap();
 	
 	public void saveNewMember(LibraryMember member); 
 	
@@ -23,4 +25,5 @@ public interface DataAccess {
 	public void loadNewUserMap(List<User> userList);
 	public void loadNewMemberMap(List<LibraryMember> memberList);
 	public void loadNewMemberCheckoutEntryMap(List<CheckoutEntry> entryList);
+	public void loadNewMemberRecordsMap(List<Records> recordsList);
 }
