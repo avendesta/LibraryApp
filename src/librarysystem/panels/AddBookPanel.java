@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.AbstractListModel;
+import javax.swing.ButtonGroup;
+
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ private JLabel bookTitleLabel;
 private JButton addButton;
 private JRadioButton dayLimit7Button;
 private JRadioButton dayLimit21Button;
+private ButtonGroup G1;
 
 public JPanel getMainPanel() {
 	return mainPanel;
@@ -92,13 +95,17 @@ public JPanel getMainPanel() {
 		mainPanel.add(isbnTextField);
 		isbnTextField.setColumns(10);
 		
-		dayLimit7Button = new JRadioButton("7 days");
+		dayLimit7Button = new JRadioButton("7 days", true);
 		dayLimit7Button.setBounds(190, 99, 141, 23);
 		mainPanel.add(dayLimit7Button);
 		
 		dayLimit21Button = new JRadioButton("21 days");
 		dayLimit21Button.setBounds(190, 130, 141, 23);
 		mainPanel.add(dayLimit21Button);
+		
+		G1 = new ButtonGroup();
+		G1.add(dayLimit7Button);
+		G1.add(dayLimit21Button);
 		
 		addButton = new JButton("Add");
 		addButton.setBounds(292, 248, 117, 29);
@@ -115,9 +122,8 @@ public JPanel getMainPanel() {
 		btn.addActionListener(evt -> {
 			String isbn = isbnTextField.getText().trim();
 			String title = titleTextField.getText().trim();
-			boolean dayLimit7 = dayLimit7Button.isEnabled();
-			boolean dayLimit21 = dayLimit21Button.isEnabled();
-			int maxCheckoutDays = dayLimit7 ? 7:21;
+
+			int maxCheckoutDays = dayLimit7Button.isSelected()? 7:21;
 			String authorIds[] = {authorTextField1.getText().trim(), authorTextField2.getText().trim(), authorTextField3.getText().trim()};
 			
 			boolean done=new SystemController().addBook(isbn, title, maxCheckoutDays, authorIds);
@@ -132,7 +138,11 @@ public JPanel getMainPanel() {
 	
 	@Override
 	public void updateData() {
-		// TODO Auto-generated method stub
-		
+		isbnTextField.setText("");
+		titleTextField.setText("");
+		dayLimit7Button.setSelected(true);
+		authorTextField1.setText("");
+		authorTextField2.setText("");
+		authorTextField3.setText("");
 	}
 }
