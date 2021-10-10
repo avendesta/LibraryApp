@@ -72,6 +72,14 @@ public class SystemController implements ControllerInterface {
 		return allMemberList;
 	}
 
+	@Override
+	public List<Book> getAllBooks() {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> membersHashMap = da.readBooksMap();
+		List<Book> allBookList = new ArrayList<Book>(membersHashMap.values());
+		return allBookList;
+	}
+
 	
 	// addMultipleBookCopy needs to save the book copy to database
 	@Override
@@ -114,6 +122,17 @@ public class SystemController implements ControllerInterface {
 		da.loadNewMemberMap(allMembersList);
 		return true;
 	}
+
+	public boolean addAuthor(String authorId, String fName, String lName, String phoneNumber, Address address,String bio) {
+		  Author newAuthor = new Author(authorId, fName, lName, phoneNumber, address,bio);
+		  DataAccess da = new DataAccessFacade();
+		  HashMap<String, Author> authorHashMap = da.readAuthorMap();
+		  authorHashMap.put(authorId, newAuthor);
+		  List<Author> allAuthorsList = new ArrayList<Author>(authorHashMap.values());
+		  if(allAuthorsList==null) {return false;}
+		  da.loadNewAuthorMap(allAuthorsList);
+		  return true;
+		 }
 	
 	@Override
 	public String getMemberCheckoutEntry(String id) {

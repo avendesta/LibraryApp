@@ -23,6 +23,7 @@ public interface DataAccess {
 	
 	public void loadNewBookMap(List<Book> bookList);
 	public void loadNewUserMap(List<User> userList);
+	public void loadNewAuthorMap(List<Author> authorrList) ;
 	public void loadNewMemberMap(List<LibraryMember> memberList);
 	public void loadNewMemberCheckoutEntryMap(List<CheckoutEntry> entryList);
 	public void loadNewMemberRecordsMap(List<Records> recordsList);

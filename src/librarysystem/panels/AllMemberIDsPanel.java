@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 
 public class AllMemberIDsPanel implements MessageableWindow {
 	private JPanel mainPanel;
-	private JTable checkoutStatusTable;
+	private JTable memberTable;
 	private Object[][] dataTable;
 
 	ControllerInterface ci = new SystemController();
@@ -63,13 +63,16 @@ public class AllMemberIDsPanel implements MessageableWindow {
 		}
 
 		model = new DefaultTableModel(dataTable, new String[] { "Member IDs", "Name" });
-		checkoutStatusTable = new JTable(model);
-		checkoutStatusTable.setDefaultEditor(Object.class, null);
-		checkoutStatusTable.setFillsViewportHeight(true);
-		checkoutStatusTable.setBackground(SystemColor.LIGHT_GRAY);
-		checkoutStatusTable.setBounds(17, 166, 416, 128);
+		memberTable = new JTable(model);
+		memberTable.setDefaultEditor(Object.class, null);
+		mainPanel.setFocusable(false);
+		memberTable.setEnabled(false);
 
-		scroll_table = new JScrollPane(checkoutStatusTable); // add table to scroll panel
+		memberTable.setFillsViewportHeight(true);
+		memberTable.setBackground(SystemColor.LIGHT_GRAY);
+		memberTable.setBounds(17, 166, 416, 128);
+
+		scroll_table = new JScrollPane(memberTable); // add table to scroll panel
 		scroll_table.setBounds(6, 98, 438, 196);
 		scroll_table.setVisible(true);
 

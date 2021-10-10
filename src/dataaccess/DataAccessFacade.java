@@ -91,6 +91,10 @@ public class DataAccessFacade implements DataAccess {
 		loadMemberMap(memberList);
 	}
 	
+	public void loadNewAuthorMap(List<Author> authorList) {
+		loadAuthorMap(authorList);
+	}
+	
 	public void loadNewMemberCheckoutEntryMap(List<CheckoutEntry> memberList) {
 		loadMemberCheckoutEntryMap(memberList);
 	}

@@ -1,90 +1,152 @@
 package librarysystem.panels;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
-import java.awt.Color;
-import javax.swing.SwingConstants;
-
+import business.LibraryMember;
 import business.SystemController;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+
+import javax.swing.JScrollBar;
+
 public class SearchMemberPanel implements MessageableWindow {
-	
 	private JPanel mainPanel;
-	private JTextField searchMemberTextField;
-	private JTextArea infoTextArea;
-	private JButton findButton;
-	
+	private JTable checkoutRecordTable;
+	private String[] columnNames;
+	private Object[][] data;
+	private JTextField searchTextField;
+	private JButton searchButton;
+
 	public JPanel getMainPanel() {
 		return mainPanel;
 	}
-	
+
 	public SearchMemberPanel() {
 
-		mainPanel=new JPanel();
+		mainPanel = new JPanel();
 		mainPanel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Search Member");
-		lblNewLabel.setBounds(25, 19, 105, 16);
-		mainPanel.add(lblNewLabel);
-		
-		searchMemberTextField = new JTextField();
-		searchMemberTextField.setToolTipText("");
-		searchMemberTextField.setBounds(35, 47, 243, 29);
-		mainPanel.add(searchMemberTextField);
-		searchMemberTextField.setColumns(10);
-		
-		findButton = new JButton("Find");
-		findButton.setBounds(303, 47, 117, 29);
-		findButton.addActionListener(e -> updateData());
-		mainPanel.add(findButton);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBackground(Color.GRAY);
-		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(35, 111, 385, 11);
-		mainPanel.add(separator);
 
-		infoTextArea = new JTextArea();
-		infoTextArea.setBounds(45, 134, 358, 114);
-		infoTextArea.setColumns(10);
-		infoTextArea.setLineWrap(true);
-		mainPanel.add(infoTextArea);
+		JLabel title = new JLabel("Search Member");
+		title.setBounds(39, 22, 237, 16);
+		mainPanel.add(title);
+
+		searchTextField = new JTextField();
+		searchTextField.setBounds(34, 60, 172, 26);
+		mainPanel.add(searchTextField);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBackground(Color.BLACK);
-		separator_1.setBounds(35, 248, 385, 11);
-		mainPanel.add(separator_1);
-		
+		searchButton = new JButton("Search Member By ID");
+		searchButton.setBounds(218, 60, 182, 26);
+		attachSearchButtonListener(searchButton);
+		updateData();
+		mainPanel.add(searchButton);
 
 	}
 
+	private void attachSearchButtonListener(JButton btn) {
+		btn.addActionListener(evt -> {
+			String id = searchTextField.getText().trim();
+			LibraryMember member = new SystemController().getMember(id);
+
+			if(member == null) {
+				displayError("Member not found!");
+				return;
+			}
+//			List<String[]> recordsInfo = new ArrayList<String[]>();
+//			recordsInfo = new SystemController().getMemberRecords(id);
+
+//			recordsInfo.forEach(a -> System.out.println("x "+Arrays.toString(a)));
+
+			String[][] info = new String[4][2];
+			// Fields
+			info[0][0] = "ID";
+			info[1][0] = "First Name";
+			info[2][0] = "Last Name";
+			info[3][0] = "Telephone";
+			
+			// Values
+			info[0][1] = member.getMemberId();
+			info[1][1] = member.getFirstName();
+			info[2][1] = member.getLastName();
+			info[3][1] = member.getTelephone();
+
+//			info = recordsInfo.toArray(info);
+			data = info;
+			updateData();
+			displayInfo("Member info for "+member.getMemberId());
+		});
+	}
+	
 	@Override
 	public void updateData() {
-		String memberId = searchMemberTextField.getText().trim();
-		String memberInfo = new SystemController().getMemberInfo(memberId);
-		System.out.println(memberId + " " + memberInfo);
-		if(memberInfo != null) {
-			infoTextArea.setText(memberInfo);
-			displayInfo("Member Found");
-		}
-		else {
-			displayError("Member Not Found");
-		}
-		mainPanel.repaint();		
+		columnNames = new String[] { "Field", "Value"};
+
+		DefaultTableModel model = new DefaultTableModel(data, columnNames);
+		checkoutRecordTable = new JTable(model);
+		checkoutRecordTable.setFillsViewportHeight(true);
+		checkoutRecordTable.setDefaultEditor(Object.class, null);
+		checkoutRecordTable.setFocusable(false);
+		checkoutRecordTable.setEnabled(false);
+		checkoutRecordTable.setBackground(SystemColor.LIGHT_GRAY);
+		checkoutRecordTable.setBounds(17, 166, 416, 128);
+		// checkoutStatusTable.setDefaultRenderer(new CustomTableRenderer());
+//		for (int i = 0; i < model.getColumnCount(); i++) {
+//			checkoutRecordTable.setDefaultRenderer(checkoutRecordTable.getColumnClass(i), new CustomTableRenderer());
+//		}
+
+		JScrollPane scroll_table = new JScrollPane(checkoutRecordTable); // add table to scroll panel
+		scroll_table.setBounds(6, 98, 438, 196);
+		scroll_table.setVisible(true);
+
+		mainPanel.add(scroll_table);
+		
 	}
 }
+
+//class CustomTableRenderer extends DefaultTableCellRenderer {
+//
+//	public Component getTableCellRendererComponent(JTable table, Object value, boolean isOverdue, boolean hasFocus,
+//			int row, int column) {
+//
+//		Component c = super.getTableCellRendererComponent(table, value, isOverdue, hasFocus, row, column);
+//		{
+//
+//			// Check the column name, if it is "version"
+//			if (table.getColumnName(column).compareToIgnoreCase("isOverDue") == 0) {
+//				// You know version column includes string
+//				String isOverDue = (String) value;
+//
+//				if (isOverDue == "OverDue") {
+//					// set to red bold font
+//					c.setForeground(Color.RED);
+//					c.setFont(new Font("Dialog", Font.BOLD, 12));
+//				} else {
+//					// stay at default
+//					c.setForeground(Color.BLACK);
+//					c.setFont(new Font("Dialog", Font.PLAIN, 12));
+//				}
+//			} else {
+//				// Here you should also stay at default
+//				// stay at default
+//				c.setForeground(Color.BLACK);
+//				c.setFont(new Font("Dialog", Font.PLAIN, 12));
+//			}
+//			return c;
+//		}
+//	}
+//}

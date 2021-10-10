@@ -37,6 +37,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    SearchMemberPanel smp;
    AddBookCopyPanel abcp;
    AddMemberPanel amp;
+   AddAuthorPanel aap;
    MemberCheckoutRecordPanel mcrp;
    AllMemberIDsPanel amip;
    //boolean startup = true;
@@ -47,17 +48,17 @@ public class MainFrame extends JFrame implements MessageableWindow {
    Item searchMemberItem = new Item("Search Member", false);
    Item checkoutBookItem = new Item("Checkout Book", false);
    Item checkStatusItem = new Item("Check Status Of Book Copy", false);
-   Item addAuthorItem = new Item("Add Member IDs", false);
    Item allBookIDsItem = new Item("All Book IDs", false);
    Item memberCheckoutRecordItem = new Item("Member Checkout Record", false);
    		// admin previlages
    Item addMemberItem = new Item("Add Member", false);
+   Item addAuthorItem = new Item("Add Author", false);
    Item addBookItem = new Item("Add Book", false);
    Item addBookCopyItem = new Item("Add Book Copy", false);
    Item allMemberIDsItem = new Item("All Member IDs", false);
    
-   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addAuthorItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem};
-   Item[] adminItems = {loginItem, addMemberItem, addBookItem, addBookCopyItem};
+   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem};
+   Item[] adminItems = {loginItem, addMemberItem, addBookItem, addBookCopyItem, addAuthorItem};
    Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addAuthorItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem,
 		   						addMemberItem, addBookItem, addBookCopyItem};
    Item[] commonItems = {loginItem};
@@ -100,6 +101,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      if(value.equals("search Member")) smp.updateData();
 	      if(value.equals("Add Book Copy")) abcp.updateData();
 	      if(value.equals("Add Member")) amp.updateData();
+	      if(value.equals("Add Author")) aap.updateData();
 	      if(value.equals("Member Checkout Record")) mcrp.updateData();
 	      if(value.equals("All Member IDs")) amip.updateData();
 	      
@@ -126,9 +128,6 @@ public class MainFrame extends JFrame implements MessageableWindow {
    
    public void createLinkLabels() {
 	    DefaultListModel<Item> model = new DefaultListModel<>();
-//		model.addElement(loginListItem);
-//		model.addElement(viewTitlesItem);
-//		model.addElement(addBookItem);
 	    for(Item li: bothItems)
 	    	model.addElement(li);
 	
@@ -188,6 +187,10 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   // add member
 	   amp = new AddMemberPanel();
 	   JPanel addMemberPanel = amp.getMainPanel();
+
+	   // add author
+	   aap = new AddAuthorPanel();
+	   JPanel addAuthorPanel = aap.getMainPanel();
 	   
 	   // member checkout record
 	   mcrp = new MemberCheckoutRecordPanel();
@@ -204,6 +207,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
        cards.add(searchMemberIdPanel, searchMemberItem.getItemName());
        cards.add(addBookCopyPanel, addBookCopyItem.getItemName());
        cards.add(addMemberPanel, addMemberItem.getItemName());
+       cards.add(addAuthorPanel, addAuthorItem.getItemName());
        cards.add(memberCheckoutRecord, memberCheckoutRecordItem.getItemName());
        cards.add(allMemberIDsPanel, allMemberIDsItem.getItemName());
    }

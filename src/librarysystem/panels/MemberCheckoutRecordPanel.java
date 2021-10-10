@@ -26,7 +26,7 @@ import javax.swing.JScrollBar;
 
 public class MemberCheckoutRecordPanel implements MessageableWindow {
 	private JPanel mainPanel;
-	private JTable checkoutStatusTable;
+	private JTable checkoutRecordTable;
 	private String[] columnNames;
 	private Object[][] data;
 	private JTextField searchTextField;
@@ -46,7 +46,6 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 		mainPanel.add(title);
 
 		searchTextField = new JTextField();
-		searchTextField.setText("1001");
 		searchTextField.setBounds(34, 60, 172, 26);
 		mainPanel.add(searchTextField);
 		
@@ -69,9 +68,12 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 			String[][] info = new String[recordsInfo.size()][];
 			info = recordsInfo.toArray(info);
 			data = info;
-			if(data.length == 0)
+			if(data.length == 0) {
 				displayError("No checkout Entry found");
+				return;
+			}
 			updateData();
+			displayInfo("Succesfull!!");
 		});
 	}
 	
@@ -80,16 +82,19 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 		columnNames = new String[] { "ISBN", "Title", "CopyNumber", "checkoutDate", "isOverDue" };
 
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
-		checkoutStatusTable = new JTable(model);
-		checkoutStatusTable.setFillsViewportHeight(true);
-		checkoutStatusTable.setBackground(SystemColor.LIGHT_GRAY);
-		checkoutStatusTable.setBounds(17, 166, 416, 128);
+		checkoutRecordTable = new JTable(model);
+		checkoutRecordTable.setFillsViewportHeight(true);
+		checkoutRecordTable.setDefaultEditor(Object.class, null);
+		checkoutRecordTable.setFocusable(false);
+		checkoutRecordTable.setEnabled(false);
+		checkoutRecordTable.setBackground(SystemColor.LIGHT_GRAY);
+		checkoutRecordTable.setBounds(17, 166, 416, 128);
 		// checkoutStatusTable.setDefaultRenderer(new CustomTableRenderer());
 		for (int i = 0; i < model.getColumnCount(); i++) {
-			checkoutStatusTable.setDefaultRenderer(checkoutStatusTable.getColumnClass(i), new CustomTableRenderer());
+			checkoutRecordTable.setDefaultRenderer(checkoutRecordTable.getColumnClass(i), new CustomTableRenderer());
 		}
 
-		JScrollPane scroll_table = new JScrollPane(checkoutStatusTable); // add table to scroll panel
+		JScrollPane scroll_table = new JScrollPane(checkoutRecordTable); // add table to scroll panel
 		scroll_table.setBounds(6, 98, 438, 196);
 		scroll_table.setVisible(true);
 
