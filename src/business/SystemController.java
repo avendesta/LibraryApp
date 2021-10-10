@@ -138,4 +138,30 @@ public class SystemController implements ControllerInterface {
 		return libraryMember;
 	}
 	
+	@Override
+	public List<String[]> getMemberRecords(String id){
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Records> memberRecordsHashMap = da.readMemberRecordsMap();
+		System.out.println(Arrays.toString(memberRecordsHashMap.keySet().toArray()) );
+//		System.out.println(memberRecordsHashMap.get(memberRecordsHashMap.keySet().toArray()[0]));
+		Records memberRecords = memberRecordsHashMap.get(id);
+//		System.out.println(memberRecords); // null
+		List<String[]> recordInfo = new ArrayList<String[]>();
+		String[] info;
+		if(memberRecords == null)
+			return null;
+		for(CheckoutEntry ent: memberRecords.getCheckoutrecord()) {
+			info = new String[5];
+			info[0] = ent.getBookCopy().getBook().getIsbn();
+			info[1] = ent.getBookCopy().getBook().getTitle();
+			info[2] = String.valueOf(ent.getBookCopy().getCopyNum());  
+			info[3] = ent.getCheckoutDate().toString();
+			info[4] = ent.isOverdue()? "Overdue":"";
+//			info[5] = ent.getBookCopy().isAvailable()? "isAvailable":"notAvailable";
+//			System.out.println(Arrays.toString(info));
+			recordInfo.add(info);
+		}
+		return recordInfo;
+	}
+	
 }

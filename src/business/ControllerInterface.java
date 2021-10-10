@@ -21,4 +21,5 @@ public interface ControllerInterface {
 	public LibraryMember getMember(String memberId);
 	
 	public List<LibraryMember> getAllMembers();
+	public List<String[]> getMemberRecords(String id);
 }

@@ -87,7 +87,6 @@ public class TestData implements Serializable{
 				add(new CheckoutEntry(members.get(0), allBooks.get(0).getCopy(1)));
 				add(new CheckoutEntry(members.get(1), allBooks.get(1).getCopy(1)));
 				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(1)));
-				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1)));
 			}
 		};
 		DataAccessFacade.loadMemberCheckoutEntryMap(allMemberCheckoutEntries);
@@ -98,48 +97,44 @@ public class TestData implements Serializable{
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList1 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(0), allBooks.get(0).getCopy(1)));
 				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1)));
 				add(new CheckoutEntry(members.get(0), allBooks.get(2).getCopy(1)));
-				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1)));
 			}
 		};
 		
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList2 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(1)));
-				add(new CheckoutEntry(members.get(1), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(2)));
 				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(1)));
-				add(new CheckoutEntry(members.get(1), allBooks.get(1).getCopy(1)));
 			}
 		};
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList3 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1)));
-				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(1)));
 				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(1)));
 				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(2)));
 			}
 		};
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList4 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(3), allBooks.get(0).getCopy(1)));
 				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1)));
-				add(new CheckoutEntry(members.get(3), allBooks.get(2).getCopy(1)));
-				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(0).getCopy(2)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(2)));
+				add(new CheckoutEntry(members.get(3), allBooks.get(2).getCopy(2)));
 			}
 		};
 
 		@SuppressWarnings("serial")
 		List<Records> records = new ArrayList<Records>() {
 			{
-				add(new Records("1", entryList1));
-				add(new Records("2", entryList2));
-				add(new Records("3", entryList3));
-				add(new Records("4", entryList4));
+				add(new Records("1001", entryList1));
+				add(new Records("1002", entryList2));
+				add(new Records("1003", entryList3));
+				add(new Records("1004", entryList4));
 			}
 		};
 		DataAccessFacade.loadMemberRecordsMap(records);
