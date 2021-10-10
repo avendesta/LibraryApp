@@ -47,7 +47,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    Item searchMemberItem = new Item("Search Member", false);
    Item checkoutBookItem = new Item("Checkout Book", false);
    Item checkStatusItem = new Item("Check Status Of Book Copy", false);
-   Item addMemberIDsItem = new Item("Add Member IDs", false);
+   Item addAuthorItem = new Item("Add Member IDs", false);
    Item allBookIDsItem = new Item("All Book IDs", false);
    Item memberCheckoutRecordItem = new Item("Member Checkout Record", false);
    		// admin previlages
@@ -56,9 +56,9 @@ public class MainFrame extends JFrame implements MessageableWindow {
    Item addBookCopyItem = new Item("Add Book Copy", false);
    Item allMemberIDsItem = new Item("All Member IDs", false);
    
-   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem};
+   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addAuthorItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem};
    Item[] adminItems = {loginItem, addMemberItem, addBookItem, addBookCopyItem};
-   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem,
+   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addAuthorItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem,
 		   						addMemberItem, addBookItem, addBookCopyItem};
    Item[] commonItems = {loginItem};
    

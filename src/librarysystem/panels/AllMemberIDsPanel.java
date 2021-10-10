@@ -64,8 +64,9 @@ public class AllMemberIDsPanel implements MessageableWindow {
 
 		model = new DefaultTableModel(dataTable, new String[] { "Member IDs", "Name" });
 		checkoutStatusTable = new JTable(model);
+		checkoutStatusTable.setDefaultEditor(Object.class, null);
 		checkoutStatusTable.setFillsViewportHeight(true);
-		checkoutStatusTable.setBackground(SystemColor.textHighlight);
+		checkoutStatusTable.setBackground(SystemColor.LIGHT_GRAY);
 		checkoutStatusTable.setBounds(17, 166, 416, 128);
 
 		scroll_table = new JScrollPane(checkoutStatusTable); // add table to scroll panel
