@@ -64,6 +64,14 @@ public class SystemController implements ControllerInterface {
 			return null;
 		return Arrays.toString( allBookList.toArray());
 	}
+	@Override
+	public List<LibraryMember> getAllMembers() {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> membersHashMap = da.readMemberMap();
+		List<LibraryMember> allMemberList = new ArrayList<LibraryMember>(membersHashMap.values());
+		return allMemberList;
+	}
+
 	
 	// addMultipleBookCopy needs to save the book copy to database
 	@Override

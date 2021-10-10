@@ -19,4 +19,6 @@ public interface ControllerInterface {
 	//
 	public String getMemberCheckoutEntry(String id);
 	public LibraryMember getMember(String memberId);
+	
+	public List<LibraryMember> getAllMembers();
 }

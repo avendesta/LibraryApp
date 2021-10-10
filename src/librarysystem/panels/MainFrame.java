@@ -38,6 +38,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    AddBookCopyPanel abcp;
    AddMemberPanel amp;
    MemberCheckoutRecordPanel mcrp;
+   AllMemberIDsPanel amip;
    //boolean startup = true;
    
    //list items
@@ -53,10 +54,11 @@ public class MainFrame extends JFrame implements MessageableWindow {
    Item addMemberItem = new Item("Add Member", false);
    Item addBookItem = new Item("Add Book", false);
    Item addBookCopyItem = new Item("Add Book Copy", false);
+   Item allMemberIDsItem = new Item("All Member IDs", false);
    
-   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem};
+   Item[] librarianItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem};
    Item[] adminItems = {loginItem, addMemberItem, addBookItem, addBookCopyItem};
-   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem, 
+   Item[] bothItems = {loginItem, searchMemberItem, checkoutBookItem, checkStatusItem, addMemberIDsItem, allBookIDsItem, memberCheckoutRecordItem, allMemberIDsItem,
 		   						addMemberItem, addBookItem, addBookCopyItem};
    Item[] commonItems = {loginItem};
    
@@ -99,6 +101,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      if(value.equals("Add Book Copy")) abcp.updateData();
 	      if(value.equals("Add Member")) amp.updateData();
 	      if(value.equals("Member Checkout Record")) mcrp.updateData();
+	      if(value.equals("All Member IDs")) amip.updateData();
 	      
 	      cl.show(cards,value);
       	});
@@ -190,6 +193,10 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   mcrp = new MemberCheckoutRecordPanel();
 	   JPanel memberCheckoutRecord = mcrp.getMainPanel();
 	   
+	   //all member IDs
+	   amip = new AllMemberIDsPanel();
+	   JPanel allMemberIDsPanel = amip.getMainPanel();
+	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
        cards.add(allBookIDsPanel, allBookIDsItem.getItemName());
@@ -198,6 +205,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
        cards.add(addBookCopyPanel, addBookCopyItem.getItemName());
        cards.add(addMemberPanel, addMemberItem.getItemName());
        cards.add(memberCheckoutRecord, memberCheckoutRecordItem.getItemName());
+       cards.add(allMemberIDsPanel, allMemberIDsItem.getItemName());
    }
    @Override
    public void updateData() {
