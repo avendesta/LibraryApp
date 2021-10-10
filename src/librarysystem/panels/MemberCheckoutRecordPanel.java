@@ -8,12 +8,10 @@ import business.SystemController;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 public class MemberCheckoutRecordPanel implements MessageableWindow {
 	private JPanel mainPanel;
@@ -71,7 +69,7 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 	
 	@Override
 	public void updateData() {
-		columnNames = new String[] { "ISBN", "Title", "CopyNumber", "checkoutDate", "isOverDue" };
+		columnNames = new String[] { "ISBN", "Title", "CopyNumber", "checkoutDate", "Status" };
 
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 		checkoutRecordTable = new JTable(model);
@@ -97,6 +95,11 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 
 class CustomTableRenderer extends DefaultTableCellRenderer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3274565041447311945L;
+
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isOverdue, boolean hasFocus,
 			int row, int column) {
 
@@ -104,7 +107,7 @@ class CustomTableRenderer extends DefaultTableCellRenderer {
 		{
 
 			// Check the column name, if it is "version"
-			if (table.getColumnName(column).compareToIgnoreCase("isOverDue") == 0) {
+			if (table.getColumnName(column).compareToIgnoreCase("Status") == 0) {
 				// You know version column includes string
 				String isOverDue = (String) value;
 

@@ -1,29 +1,12 @@
 package librarysystem.panels;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import business.LibraryMember;
 import business.SystemController;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
-
-import javax.swing.JScrollBar;
+import java.awt.*;
 
 public class SearchMemberPanel implements MessageableWindow {
 	private JPanel mainPanel;
@@ -65,6 +48,8 @@ public class SearchMemberPanel implements MessageableWindow {
 
 			if(member == null) {
 				displayError("Member not found!");
+				data = new Object[0][0];
+				updateData();
 				return;
 			}
 

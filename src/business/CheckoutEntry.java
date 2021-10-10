@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class CheckoutEntry implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1252707950055877724L;
 	private BookCopy bookCopy;
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
@@ -26,7 +30,7 @@ public class CheckoutEntry implements Serializable {
 	}
 	public boolean isOverdue() {
 		LocalDate today = LocalDate.now();
-		return dueDate.isAfter(today);
+		return dueDate.isBefore(today);
 	}
 	public LocalDate getCheckoutDate() {
 		return checkoutDate;
