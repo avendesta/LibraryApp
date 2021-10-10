@@ -30,6 +30,7 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 	private String[] columnNames;
 	private Object[][] data;
 	private JTextField searchTextField;
+	private JButton searchButton;
 
 	public JPanel getMainPanel() {
 		return mainPanel;
@@ -49,14 +50,31 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 		searchTextField.setBounds(34, 60, 172, 26);
 		mainPanel.add(searchTextField);
 		
-		JButton btnNewButton_1 = new JButton("Search By Member ID");
-		btnNewButton_1.setBounds(218, 60, 182, 26);
-		btnNewButton_1.addActionListener(evt -> updateData());
+		searchButton = new JButton("Search By Member ID");
+		searchButton.setBounds(218, 60, 182, 26);
+		attachSearchButtonListener(searchButton);
 		updateData();
-		mainPanel.add(btnNewButton_1);
+		mainPanel.add(searchButton);
 
 	}
 
+	private void attachSearchButtonListener(JButton btn) {
+		btn.addActionListener(evt -> {
+			String id = searchTextField.getText().trim();
+			List<String[]> recordsInfo = new ArrayList<String[]>();
+			recordsInfo = new SystemController().getMemberRecords(id);
+
+//			recordsInfo.forEach(a -> System.out.println("x "+Arrays.toString(a)));
+
+			String[][] info = new String[recordsInfo.size()][];
+			info = recordsInfo.toArray(info);
+			data = info;
+			if(data.length == 0)
+				displayError("No checkout Entry found");
+			updateData();
+		});
+	}
+	
 	@Override
 	public void updateData() {
 		columnNames = new String[] { "ISBN", "Title", "CopyNumber", "checkoutDate", "isOverDue" };
@@ -64,7 +82,7 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 		checkoutStatusTable = new JTable(model);
 		checkoutStatusTable.setFillsViewportHeight(true);
-		checkoutStatusTable.setBackground(SystemColor.textHighlight);
+		checkoutStatusTable.setBackground(SystemColor.LIGHT_GRAY);
 		checkoutStatusTable.setBounds(17, 166, 416, 128);
 		// checkoutStatusTable.setDefaultRenderer(new CustomTableRenderer());
 		for (int i = 0; i < model.getColumnCount(); i++) {
@@ -77,16 +95,6 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 
 		mainPanel.add(scroll_table);
 		
-		
-		String id = searchTextField.getText().trim();
-		List<String[]> recordsInfo = new ArrayList<String[]>();
-		recordsInfo = new SystemController().getMemberRecords(id);
-
-//		recordsInfo.forEach(a -> System.out.println("x "+Arrays.toString(a)));
-
-		String[][] info = new String[recordsInfo.size()][];
-		info = recordsInfo.toArray(info);
-		data = info;
 	}
 }
 
@@ -99,7 +107,7 @@ class CustomTableRenderer extends DefaultTableCellRenderer {
 		{
 
 			// Check the column name, if it is "version"
-			if (table.getColumnName(column).compareToIgnoreCase("Overdue") == 0) {
+			if (table.getColumnName(column).compareToIgnoreCase("isOverDue") == 0) {
 				// You know version column includes string
 				String isOverDue = (String) value;
 

@@ -76,7 +76,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    
    public MainFrame() {
 	  Util.adjustLabelFont(statusBar, Util.DARK_BLUE, true);
-      setSize(600, 450);
+      setSize(700, 450);
       
       createLinkLabels();
       createMainPanels();

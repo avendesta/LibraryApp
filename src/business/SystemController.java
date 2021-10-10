@@ -149,7 +149,7 @@ public class SystemController implements ControllerInterface {
 		List<String[]> recordInfo = new ArrayList<String[]>();
 		String[] info;
 		if(memberRecords == null)
-			return null;
+			return recordInfo;
 		for(CheckoutEntry ent: memberRecords.getCheckoutrecord()) {
 			info = new String[5];
 			info[0] = ent.getBookCopy().getBook().getIsbn();
