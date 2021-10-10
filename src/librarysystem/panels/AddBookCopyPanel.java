@@ -39,7 +39,7 @@ public class AddBookCopyPanel implements MessageableWindow {
 		title.setBounds(16, 16, 102, 16);
 		mainPanel.add(title);
 		
-		JLabel bookIdLabel = new JLabel("Book ID");
+		JLabel bookIdLabel = new JLabel("Book ISBN");
 		bookIdLabel.setBounds(79, 68, 61, 16);
 		mainPanel.add(bookIdLabel);
 		
@@ -63,25 +63,13 @@ public class AddBookCopyPanel implements MessageableWindow {
 		mainPanel.add(addCopyButton);
 		
 		JLabel backgroundLabel = new JLabel("");
-		backgroundLabel.setIcon(new ImageIcon(AddBookCopyPanel.class.getResource("/images/library.jpg")));
+//		backgroundLabel.setIcon(new ImageIcon(AddBookCopyPanel.class.getResource("/images/library.jpg")));
 		backgroundLabel.setBounds(-24, 0, 474, 300);
 		mainPanel.add(backgroundLabel);	
 	}
 	
 	private void attachaddCopyButonListener(JButton butn) {
-//		butn.addActionListener(evt -> {
-//			List<Author> authors = new ArrayList<Author>();
-//			String fname = authFirstNameField.getText();
-//			String lname = authLastNameField.getText();
-//			
-//			String title = titleField.getText();
-//			authors.add(new Author(fname, lname));
-//			
-//			Data.addBookTitle(title);
-//			displayInfo("The book " + title + " has been added " +
-//			   "to the collection!");			
-//		
-//	    });
+
 		butn.addActionListener(evt -> {
 			String bookId = bookIdTextField.getText().trim();
 			int numberOfCopy = Integer.parseInt(numberOfCopyTextField.getText().trim());

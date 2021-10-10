@@ -67,10 +67,6 @@ public class SearchMemberPanel implements MessageableWindow {
 				displayError("Member not found!");
 				return;
 			}
-//			List<String[]> recordsInfo = new ArrayList<String[]>();
-//			recordsInfo = new SystemController().getMemberRecords(id);
-
-//			recordsInfo.forEach(a -> System.out.println("x "+Arrays.toString(a)));
 
 			String[][] info = new String[4][2];
 			// Fields
@@ -85,7 +81,6 @@ public class SearchMemberPanel implements MessageableWindow {
 			info[2][1] = member.getLastName();
 			info[3][1] = member.getTelephone();
 
-//			info = recordsInfo.toArray(info);
 			data = info;
 			updateData();
 			displayInfo("Member info for "+member.getMemberId());
@@ -104,10 +99,6 @@ public class SearchMemberPanel implements MessageableWindow {
 		checkoutRecordTable.setEnabled(false);
 		checkoutRecordTable.setBackground(SystemColor.LIGHT_GRAY);
 		checkoutRecordTable.setBounds(17, 166, 416, 128);
-		// checkoutStatusTable.setDefaultRenderer(new CustomTableRenderer());
-//		for (int i = 0; i < model.getColumnCount(); i++) {
-//			checkoutRecordTable.setDefaultRenderer(checkoutRecordTable.getColumnClass(i), new CustomTableRenderer());
-//		}
 
 		JScrollPane scroll_table = new JScrollPane(checkoutRecordTable); // add table to scroll panel
 		scroll_table.setBounds(6, 98, 438, 196);
@@ -118,35 +109,3 @@ public class SearchMemberPanel implements MessageableWindow {
 	}
 }
 
-//class CustomTableRenderer extends DefaultTableCellRenderer {
-//
-//	public Component getTableCellRendererComponent(JTable table, Object value, boolean isOverdue, boolean hasFocus,
-//			int row, int column) {
-//
-//		Component c = super.getTableCellRendererComponent(table, value, isOverdue, hasFocus, row, column);
-//		{
-//
-//			// Check the column name, if it is "version"
-//			if (table.getColumnName(column).compareToIgnoreCase("isOverDue") == 0) {
-//				// You know version column includes string
-//				String isOverDue = (String) value;
-//
-//				if (isOverDue == "OverDue") {
-//					// set to red bold font
-//					c.setForeground(Color.RED);
-//					c.setFont(new Font("Dialog", Font.BOLD, 12));
-//				} else {
-//					// stay at default
-//					c.setForeground(Color.BLACK);
-//					c.setFont(new Font("Dialog", Font.PLAIN, 12));
-//				}
-//			} else {
-//				// Here you should also stay at default
-//				// stay at default
-//				c.setForeground(Color.BLACK);
-//				c.setFont(new Font("Dialog", Font.PLAIN, 12));
-//			}
-//			return c;
-//		}
-//	}
-//}

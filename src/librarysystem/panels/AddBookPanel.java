@@ -1,21 +1,11 @@
 package librarysystem.panels;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import business.SystemController;
 
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.AbstractListModel;
-import javax.swing.ButtonGroup;
 
 import java.awt.Font;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.JSeparator;
 
 public class AddBookPanel implements MessageableWindow {
 private JPanel mainPanel;
@@ -114,7 +104,7 @@ public JPanel getMainPanel() {
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(29, 25, 372, 26);
-		mainPanel.add(separator);
+//		mainPanel.add(separator);
 
 	}
 	

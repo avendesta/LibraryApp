@@ -1,6 +1,7 @@
 package dataaccess;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,14 +45,29 @@ public class TestData implements Serializable{
 		allBooks.get(0).addCopy();
 		allBooks.get(0).addCopy();
 		allBooks.get(0).addCopy();
+		allBooks.get(0).addCopy();
+		allBooks.get(0).addCopy();
+		allBooks.get(0).addCopy();
+		
 		allBooks.get(1).addCopy();
 		allBooks.get(1).addCopy();
+		allBooks.get(1).addCopy();
+		allBooks.get(1).addCopy();
+
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+		allBooks.get(2).addCopy();
+
 		allBooks.get(3).addCopy();
 		allBooks.get(3).addCopy();
-		allBooks.get(2).addCopy();
-		allBooks.get(2).addCopy();
-		allBooks.get(2).addCopy();
-		allBooks.get(2).addCopy();
+		allBooks.get(3).addCopy();
+		allBooks.get(3).addCopy();
+		
 		DataAccessFacade.loadBookMap(allBooks);
 	}
 
@@ -97,7 +113,7 @@ public class TestData implements Serializable{
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList1 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1), LocalDate.parse("2021-04-07")));
 				add(new CheckoutEntry(members.get(0), allBooks.get(2).getCopy(1)));
 			}
 		};
@@ -106,14 +122,14 @@ public class TestData implements Serializable{
 		List<CheckoutEntry> entryList2 = new ArrayList<CheckoutEntry>() {
 			{
 				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(2)));
-				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(1)));
+				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(2)));
 			}
 		};
 		@SuppressWarnings("serial")
 		List<CheckoutEntry> entryList3 = new ArrayList<CheckoutEntry>() {
 			{
-				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(1)));
-				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(1)));
+				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(3), LocalDate.parse("2020-11-12")));
+				add(new CheckoutEntry(members.get(2), allBooks.get(3).getCopy(1)));
 				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1)));
 				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(2)));
 			}

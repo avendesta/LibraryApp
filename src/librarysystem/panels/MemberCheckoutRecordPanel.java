@@ -1,13 +1,6 @@
 package librarysystem.panels;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,8 +14,6 @@ import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-
-import javax.swing.JScrollBar;
 
 public class MemberCheckoutRecordPanel implements MessageableWindow {
 	private JPanel mainPanel;
@@ -70,6 +61,7 @@ public class MemberCheckoutRecordPanel implements MessageableWindow {
 			data = info;
 			if(data.length == 0) {
 				displayError("No checkout Entry found");
+				updateData();
 				return;
 			}
 			updateData();
@@ -116,7 +108,7 @@ class CustomTableRenderer extends DefaultTableCellRenderer {
 				// You know version column includes string
 				String isOverDue = (String) value;
 
-				if (isOverDue == "OverDue") {
+				if (isOverDue == "Overdue") {
 					// set to red bold font
 					c.setForeground(Color.RED);
 					c.setFont(new Font("Dialog", Font.BOLD, 12));
