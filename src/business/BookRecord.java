@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-public class Records implements Serializable {
+public class BookRecord implements Serializable {
+	private static final long serialVersionUID = 1697448801016877416L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4751064153458182984L;
+
 	private List<CheckoutEntry> record;
-	private String libraryMemberId;
+	private String isbn;
 	
-	public Records(String libraryMemberId, List<CheckoutEntry> record) {
+	public BookRecord(String isbn, List<CheckoutEntry> record) {
 		this.record = record;
-		this.libraryMemberId = libraryMemberId;
+		this.isbn = isbn;
 	}
 	
 	public List<CheckoutEntry> getRecord() {
@@ -37,7 +38,7 @@ public class Records implements Serializable {
 		return "";
 	}
 
-	public String getLibraryMemberId() {
-		return libraryMemberId;
+	public String getISBN() {
+		return isbn;
 	}
 }

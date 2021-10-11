@@ -40,6 +40,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    AddAuthorPanel aap;
    MemberCheckoutRecordPanel mcrp;
    AllMemberIDsPanel amip;
+   CheckoutBookPanel cbp;
    //boolean startup = true;
    
    //list items
@@ -104,6 +105,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      if(value.equals("Add Author")) aap.updateData();
 	      if(value.equals("Member Checkout Record")) mcrp.updateData();
 	      if(value.equals("All Member IDs")) amip.updateData();
+	      if(value.equals("Checkout Book")) cbp.updateData();
 	      
 	      cl.show(cards,value);
       	});
@@ -200,6 +202,10 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   amip = new AllMemberIDsPanel();
 	   JPanel allMemberIDsPanel = amip.getMainPanel();
 	   
+	   //checkout book
+	   cbp = new CheckoutBookPanel();
+	   JPanel checkoutBookPanel = cbp.getMainPanel();
+	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
        cards.add(allBookIDsPanel, allBookIDsItem.getItemName());
@@ -210,6 +216,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
        cards.add(addAuthorPanel, addAuthorItem.getItemName());
        cards.add(memberCheckoutRecord, memberCheckoutRecordItem.getItemName());
        cards.add(allMemberIDsPanel, allMemberIDsItem.getItemName());
+       cards.add(checkoutBookPanel, checkoutBookItem.getItemName());
    }
    @Override
    public void updateData() {

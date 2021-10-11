@@ -12,16 +12,17 @@ import java.util.List;
 import business.Author;
 import business.Book;
 import business.BookCopy;
+import business.BookRecord;
 import business.CheckoutEntry;
 import business.LibraryMember;
-import business.Records;
+import business.MemberRecord;
 import dataaccess.DataAccessFacade.StorageType;
 
 
 public class DataAccessFacade implements DataAccess {
 	
 	enum StorageType {
-		BOOKS, MEMBERS, USERS, AUTHORS, MEMBER_CHECKOUTENTRIES, MEMBER_RECORDS;
+		BOOKS, MEMBERS, USERS, AUTHORS, MEMBER_CHECKOUTENTRIES, MEMBER_RECORDS, BOOK_RECORDS;
 	}
 	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
@@ -74,10 +75,17 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public HashMap<String, Records> readMemberRecordsMap() {
+	public HashMap<String, MemberRecord> readMemberRecordsMap() {
 		//Returns a Map with name/value pairs being
 		//   libraryMemberId -> records of the library member
-		return (HashMap<String, Records>)readFromStorage(StorageType.MEMBER_RECORDS);
+		return (HashMap<String, MemberRecord>)readFromStorage(StorageType.MEMBER_RECORDS);
+	}
+
+	@SuppressWarnings("unchecked")
+	public HashMap<String, MemberRecord> readBookRecordsMap() {
+		//Returns a Map with name/value pairs being
+		//   ISBN -> records of the book with that ISBN
+		return (HashMap<String, MemberRecord>)readFromStorage(StorageType.BOOK_RECORDS);
 	}
 	
 	//
@@ -99,8 +107,12 @@ public class DataAccessFacade implements DataAccess {
 		loadMemberCheckoutEntryMap(memberList);
 	}
 	
-	public void loadNewMemberRecordsMap(List<Records> recordsList){
+	public void loadNewMemberRecordsMap(List<MemberRecord> recordsList){
 		loadMemberRecordsMap(recordsList);
+	}
+	
+	public void loadNewBookRecordsMap(List<BookRecord> recordsList){
+		loadBookRecordsMap(recordsList);
 	}
 	
 	/////load methods - these place test data into the storage area
@@ -136,10 +148,16 @@ public class DataAccessFacade implements DataAccess {
 		saveToStorage(StorageType.MEMBER_CHECKOUTENTRIES, entries);
 	}
 	
-	static void loadMemberRecordsMap(List<Records> recordsList) {
-		HashMap<String, Records> records = new HashMap<String, Records>();
+	static void loadMemberRecordsMap(List<MemberRecord> recordsList) {
+		HashMap<String, MemberRecord> records = new HashMap<String, MemberRecord>();
 		recordsList.forEach(rs -> records.put(rs.getLibraryMemberId(), rs));
 		saveToStorage(StorageType.MEMBER_RECORDS, records);
+	}
+	
+	static void loadBookRecordsMap(List<BookRecord> recordsList) {
+		HashMap<String, BookRecord> records = new HashMap<String, BookRecord>();
+		recordsList.forEach(rs -> records.put(rs.getISBN(), rs));
+		saveToStorage(StorageType.BOOK_RECORDS, records);
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {

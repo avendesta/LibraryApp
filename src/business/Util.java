@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 import dataaccess.User;
 
@@ -59,12 +58,7 @@ public class Util {
 	
 	public static boolean isNumeric(String s) {
 		if(s==null) return false;
-		try {
-			Integer.parseInt(s);
-			return true;
-		} catch(Exception e) {
-			return false;
-		}
+		return s.matches("\\d+");
 	}
 	
 	public static User findUser(List<User> list, User user) {
@@ -73,5 +67,22 @@ public class Util {
 		}
 		return null;
 		
+	}
+	public static boolean isValidISBN(String s) {
+		String regex = "\\d{2}-\\d{5}";
+		return s.matches(regex);
+	}
+	public static boolean isNonEmpty(String s) {
+		if(s == null) return false;
+		if(s.length()==0) return false;
+		return true;
+	}
+
+	public static boolean allNonEmpty(String[] arr) {
+		if(arr == null) return false;
+		for(String s: arr)
+			if(s.length() == 0)
+				return false;
+		return true;
 	}
 }

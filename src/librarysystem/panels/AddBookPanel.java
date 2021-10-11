@@ -3,7 +3,7 @@ package librarysystem.panels;
 import javax.swing.*;
 
 import business.SystemController;
-
+import business.Util;
 
 import java.awt.Font;
 
@@ -104,8 +104,6 @@ public JPanel getMainPanel() {
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(29, 25, 372, 26);
-//		mainPanel.add(separator);
-
 	}
 	
 	private void attachAddButtonListener(JButton btn) {
@@ -115,6 +113,14 @@ public JPanel getMainPanel() {
 
 			int maxCheckoutDays = dayLimit7Button.isSelected()? 7:21;
 			String authorIds[] = {authorTextField1.getText().trim(), authorTextField2.getText().trim(), authorTextField3.getText().trim()};
+			if(!Util.isValidISBN(isbn)) {
+				displayError("invalid ISBN: should be similar to 12-34567");
+				return;
+			}
+			if(!Util.isNonEmpty(title)) {
+				displayError("Book must have a title!");
+				return;
+			}
 			
 			boolean done=new SystemController().addBook(isbn, title, maxCheckoutDays, authorIds);
 			if(!done) {

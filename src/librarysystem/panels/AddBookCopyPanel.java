@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import business.Author;
 import business.SystemController;
+import business.Util;
 
 import javax.swing.ImageIcon;
 
@@ -72,6 +73,12 @@ public class AddBookCopyPanel implements MessageableWindow {
 
 		butn.addActionListener(evt -> {
 			String bookId = bookIdTextField.getText().trim();
+			String numberOfCopyStr = numberOfCopyTextField.getText().trim();
+			
+			if(!Util.isNumeric(numberOfCopyStr)) {
+				displayError("Please Enter Integer in the book copy field");
+				return;
+			}
 			int numberOfCopy = Integer.parseInt(numberOfCopyTextField.getText().trim());
 			// addMultipleBookCopy needs to save the book copy to database
 			boolean done = new SystemController().addMultipleBookCopy(bookId, numberOfCopy);

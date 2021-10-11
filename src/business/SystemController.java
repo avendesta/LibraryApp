@@ -1,5 +1,6 @@
 package business;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -123,16 +124,54 @@ public class SystemController implements ControllerInterface {
 		return true;
 	}
 
+	@Override
 	public boolean addAuthor(String authorId, String fName, String lName, String phoneNumber, Address address,String bio) {
 		  Author newAuthor = new Author(authorId, fName, lName, phoneNumber, address,bio);
 		  DataAccess da = new DataAccessFacade();
 		  HashMap<String, Author> authorHashMap = da.readAuthorMap();
 		  authorHashMap.put(authorId, newAuthor);
 		  List<Author> allAuthorsList = new ArrayList<Author>(authorHashMap.values());
-		  if(allAuthorsList==null) {return false;}
+//		  if(allAuthorsList==null) {return false;}
 		  da.loadNewAuthorMap(allAuthorsList);
 		  return true;
 		 }
+	
+	@Override
+	public boolean addEntry(String memberId, String isbn) {
+		// get what is needed to create a checkout entry from memberId and isbn
+        DataAccess da = new DataAccessFacade();
+		LocalDate checkoutDate = LocalDate.now();
+		Book book = getBook(isbn);
+		LibraryMember member = getMember(memberId);
+		if(member == null) {
+			return false;
+		}
+//		int maxCheckoutLength = book.getMaxCheckoutLength();
+//		LocalDate dueDate = checkoutDate.plusDays(maxCheckoutLength);
+		BookCopy availableBookCopy = null;
+		for(BookCopy bc: book.getCopies())
+			if(bc.isAvailable()) {
+				availableBookCopy = bc;
+				break;
+			}
+		if(availableBookCopy == null)
+			return false;
+		
+		// now that we got all we need to create a checkout entry
+		availableBookCopy.changeAvailability();
+		// ----- YOU PROBABLY NEED TO UPDATE BOOK DATABASE , BECAUSE ITS BOOKCOPY HAS CHANGED AVAILABILITY ----
+
+		
+		
+		CheckoutEntry newEntry = new CheckoutEntry(member, availableBookCopy, checkoutDate);
+		// read the hashmap from Serialized files and add the entry to it
+		HashMap<String, MemberRecord> recordHashMap = da.readMemberRecordsMap();
+		recordHashMap.get(memberId).getRecord().add(newEntry);
+		List<MemberRecord> allRecord = new ArrayList<MemberRecord>(recordHashMap.values());
+		da.loadNewMemberRecordsMap(allRecord);
+        return true;
+	 }
+
 	
 	@Override
 	public String getMemberCheckoutEntry(String id) {
@@ -156,20 +195,28 @@ public class SystemController implements ControllerInterface {
 		LibraryMember libraryMember = memberHashMap.get(memberId);
 		return libraryMember;
 	}
+
+	@Override
+	public Book getBook(String isbn) {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> bookHashMap = da.readBooksMap();
+		Book book = bookHashMap.get(isbn);
+		return book;
+	}
 	
 	@Override
 	public List<String[]> getMemberRecords(String id){
 		DataAccess da = new DataAccessFacade();
-		HashMap<String, Records> memberRecordsHashMap = da.readMemberRecordsMap();
+		HashMap<String, MemberRecord> memberRecordsHashMap = da.readMemberRecordsMap();
 		System.out.println(Arrays.toString(memberRecordsHashMap.keySet().toArray()) );
 //		System.out.println(memberRecordsHashMap.get(memberRecordsHashMap.keySet().toArray()[0]));
-		Records memberRecords = memberRecordsHashMap.get(id);
+		MemberRecord memberRecords = memberRecordsHashMap.get(id);
 //		System.out.println(memberRecords); // null
 		List<String[]> recordInfo = new ArrayList<String[]>();
 		String[] info;
 		if(memberRecords == null)
 			return recordInfo;
-		for(CheckoutEntry ent: memberRecords.getCheckoutrecord()) {
+		for(CheckoutEntry ent: memberRecords.getRecord()) {
 			info = new String[5];
 			info[0] = ent.getBookCopy().getBook().getIsbn();
 			info[1] = ent.getBookCopy().getBook().getTitle();
