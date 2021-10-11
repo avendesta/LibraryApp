@@ -11,7 +11,7 @@ public class Main {
       EventQueue.invokeLater(() -> 
          {
             JFrame frame = new MainFrame();
-            frame.setTitle("LibraryApp already named");
+            frame.setTitle("MPP LibraryAPP");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             centerFrameOnDesktop(frame);
             frame.setVisible(true);

@@ -4,23 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
 
 import business.Item;
-import business.SystemController;
 import business.Util;
 
 
@@ -30,7 +23,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    String[] links;
    JList<Item> linkList;
    JPanel cards;
-   public static JTextArea statusBar = new JTextArea("Welcome to the Book Club!");
+   public static JTextArea statusBar = new JTextArea("Welcome to the Library!");
    
    LoginPanel lp;
    AllBookIDsPanel abip;
@@ -90,8 +83,6 @@ public class MainFrame extends JFrame implements MessageableWindow {
     	  boolean allowed = linkList.getSelectedValue().highlight();
     	  System.out.println(value + " " + allowed);
     	  
-    	  //System.out.println("selected = " + value);
-    	  //cl = (CardLayout)(cards.getLayout());
 	      statusBar.setText("");
 	      if(!allowed) {
     		  value = loginItem.getItemName();
@@ -203,10 +194,6 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   //all member IDs
 	   amip = new AllMemberIDsPanel();
 	   JPanel allMemberIDsPanel = amip.getMainPanel();
-	   
-	   //check book copy status
-	   bcs = new BookCopyStatusPanel();
-//	   JPanel allBookCopyStatusPanel = bcs.getMainPanel();
 	   
 	   //checkout book
 	   cbp = new CheckoutBookPanel();
