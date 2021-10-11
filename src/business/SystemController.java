@@ -138,10 +138,10 @@ public class SystemController implements ControllerInterface {
 		 }
 	
 	@Override
-	public boolean addEntry(String memberId, String isbn) {
+	public boolean addEntry(String memberId, String isbn, LocalDate localDate) {
 		// get what is needed to create a checkout entry from memberId and isbn
         DataAccess da = new DataAccessFacade();
-		LocalDate checkoutDate = LocalDate.now();
+		LocalDate checkoutDate = localDate;
 		List<Book> allBooks = getAllBooks();
 		Book book = null;
 		for(Book b: allBooks) {
@@ -178,6 +178,19 @@ public class SystemController implements ControllerInterface {
         return true;
 	 }
 
+	
+	@Override
+	public boolean addEntry(String memberId, String isbn) {
+		return addEntry(memberId, isbn, LocalDate.now());
+	 }
+
+	@Override
+	public boolean checkBookCopyStatus(String isbn, int bookNum) {
+		Book book = getBook(isbn);
+		if(book.getNumCopies()<bookNum)
+			return false;
+		return book.getCopies()[bookNum-1].isAvailable();
+	}
 	
 	@Override
 	public String getMemberCheckoutEntry(String id) {

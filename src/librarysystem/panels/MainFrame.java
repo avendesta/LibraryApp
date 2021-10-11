@@ -41,6 +41,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
    MemberCheckoutRecordPanel mcrp;
    AllMemberIDsPanel amip;
    CheckoutBookPanel cbp;
+   BookCopyStatusPanel bcs;
    //boolean startup = true;
    
    //list items
@@ -106,6 +107,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	      if(value.equals("Member Checkout Record")) mcrp.updateData();
 	      if(value.equals("All Member IDs")) amip.updateData();
 	      if(value.equals("Checkout Book")) cbp.updateData();
+	      if(value.equals("Check Status Of Book Copy")) bcs.updateData();
 	      
 	      cl.show(cards,value);
       	});
@@ -202,9 +204,17 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   amip = new AllMemberIDsPanel();
 	   JPanel allMemberIDsPanel = amip.getMainPanel();
 	   
+	   //check book copy status
+	   bcs = new BookCopyStatusPanel();
+	   JPanel allBookCopyStatusPanel = bcs.getMainPanel();
+	   
 	   //checkout book
 	   cbp = new CheckoutBookPanel();
 	   JPanel checkoutBookPanel = cbp.getMainPanel();
+
+	   //book copy status
+	   bcs = new BookCopyStatusPanel();
+	   JPanel bookCopyStatusPanel = bcs.getMainPanel();
 	   
 	   cards = new JPanel(new CardLayout());
        cards.add(loginPanel, loginItem.getItemName());
@@ -217,6 +227,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
        cards.add(memberCheckoutRecord, memberCheckoutRecordItem.getItemName());
        cards.add(allMemberIDsPanel, allMemberIDsItem.getItemName());
        cards.add(checkoutBookPanel, checkoutBookItem.getItemName());
+       cards.add(bookCopyStatusPanel, checkStatusItem.getItemName());
    }
    @Override
    public void updateData() {
