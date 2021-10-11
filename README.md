@@ -7,6 +7,9 @@
 |102|abc|ADMIN|
 |103|111|BOTH|
 
+Default Data:
+Member IDs: 1001, 1002, 1003, 1004
+Book IDs: 23-11451, 28-12331, 32-45348
 
 ## Functionalities
 1. Login
