@@ -1,16 +1,7 @@
 package librarysystem.panels;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
 
-import business.Address;
 import business.SystemController;
 
 public class CheckoutBookPanel implements MessageableWindow {
@@ -64,16 +55,17 @@ public class CheckoutBookPanel implements MessageableWindow {
 
 			boolean done=new SystemController().addEntry(memberId, isbn);
 			if(!done) {
-				displayError("new member NOT added!!");
+				displayError("Cannot checkout: Either the ISBN is wrong or there are no available copies");
 				return;
 			}
-			displayInfo("new member added successfully");
+			displayInfo("Checkout successfull!!");
 			updateData();
 		});
 	}
 
 	@Override
 	public void updateData() {
-		mainPanel=new JPanel();
+		memberIDTextField.setText("");
+		bookISBNTextField.setText("");
 	}
 }
