@@ -2,8 +2,6 @@ package librarysystem.panels;
 
 import static librarysystem.panels.MainFrame.statusBar;
 
-import javax.swing.JPanel;
-
 import business.Util;
 
 

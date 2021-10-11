@@ -1,9 +1,8 @@
 package business;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Arrays;
 
 public class BookRecord implements Serializable {
 	private static final long serialVersionUID = 1697448801016877416L;

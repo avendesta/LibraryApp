@@ -39,7 +39,7 @@ public class TestData implements Serializable{
 		td.memberRecordData();
 		td.addEntries();
 
-		DataAccess da = new DataAccessFacade();
+//		DataAccess da = new DataAccessFacade();
 //		System.out.println(da.readBooksMap());
 //		System.out.println(da.readUserMap());
 //		System.out.println(da.readMemberCheckoutEntryMap());
@@ -150,7 +150,6 @@ public class TestData implements Serializable{
 		DataAccessFacade.loadMemberRecordsMap(records);
 	}
 	
-	@SuppressWarnings("serial")
 	public void addEntries() {
 		SystemController sc = new SystemController();
 		sc.addEntry("1001", "23-11451", LocalDate.parse("2021-10-10"));
@@ -260,7 +259,6 @@ public class TestData implements Serializable{
 			add(new User("101", "xyz", Auth.LIBRARIAN));
 			add(new User("102", "abc", Auth.ADMIN));
 			add(new User("103", "111", Auth.BOTH));
-			add(new User("1", "1", Auth.BOTH));
 		}
 	};
 

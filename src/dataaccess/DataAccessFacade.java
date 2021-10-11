@@ -11,12 +11,10 @@ import java.util.List;
 
 import business.Author;
 import business.Book;
-import business.BookCopy;
 import business.BookRecord;
 import business.CheckoutEntry;
 import business.LibraryMember;
 import business.Records;
-import dataaccess.DataAccessFacade.StorageType;
 
 
 public class DataAccessFacade implements DataAccess {

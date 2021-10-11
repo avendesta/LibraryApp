@@ -1,16 +1,8 @@
 package librarysystem.panels;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
 
-import business.Address;
 import business.SystemController;
 import business.Util;
 

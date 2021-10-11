@@ -2,35 +2,25 @@ package librarysystem.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 
-import com.sun.jdi.event.EventQueue;
 
 import business.Item;
 import business.LoginException;
 import business.SystemController;
 import business.Util;
 import dataaccess.Auth;
-import dataaccess.User;
 
 public class LoginPanel implements MessageableWindow {
 	MainFrame mainFrame;
@@ -44,7 +34,7 @@ public class LoginPanel implements MessageableWindow {
 	private JPanel upperHalf;
 	private JPanel middleHalf;
 	//private JPanel lowerHalf;
-	private JPanel container;
+//	private JPanel container;
 
 	private JPanel topPanel;
 	private JPanel middlePanel;
@@ -56,7 +46,7 @@ public class LoginPanel implements MessageableWindow {
 	private JTextField password;
 	private JLabel label;
 	private JButton loginButton;
-	private JButton logoutButton;
+//	private JButton logoutButton;
 	public LoginPanel() {
 
 		mainPanel = new JPanel();
@@ -229,9 +219,6 @@ public class LoginPanel implements MessageableWindow {
 		// nothing to do
 		
 	}
-	
-	
-	private static final long serialVersionUID = 3618976789175941432L;
 	
 	
 }

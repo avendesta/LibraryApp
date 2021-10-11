@@ -61,8 +61,6 @@ public class SystemController implements ControllerInterface {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, Book> booksHashMap = da.readBooksMap();
 		List<Book> allBookList = new ArrayList<Book>(booksHashMap.values());
-		if(allBookList == null)
-			return null;
 		return Arrays.toString( allBookList.toArray());
 	}
 	

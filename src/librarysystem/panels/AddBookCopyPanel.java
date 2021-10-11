@@ -1,24 +1,12 @@
 package librarysystem.panels;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import business.Author;
 import business.SystemController;
 import business.Util;
-
-import javax.swing.ImageIcon;
 
 public class AddBookCopyPanel implements MessageableWindow {
 	

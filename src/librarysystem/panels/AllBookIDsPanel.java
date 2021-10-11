@@ -65,24 +65,17 @@ package librarysystem.panels;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import business.Book;
 import business.ControllerInterface;
-import business.LibraryMember;
 import business.SystemController;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
 import java.awt.SystemColor;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class AllBookIDsPanel implements MessageableWindow {

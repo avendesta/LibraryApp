@@ -9,7 +9,6 @@ import business.BookRecord;
 import business.CheckoutEntry;
 import business.LibraryMember;
 import business.Records;
-import dataaccess.DataAccessFacade.StorageType;
 
 public interface DataAccess { 
 	public HashMap<String,Book> readBooksMap();

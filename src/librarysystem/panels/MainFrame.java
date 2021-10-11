@@ -206,7 +206,7 @@ public class MainFrame extends JFrame implements MessageableWindow {
 	   
 	   //check book copy status
 	   bcs = new BookCopyStatusPanel();
-	   JPanel allBookCopyStatusPanel = bcs.getMainPanel();
+//	   JPanel allBookCopyStatusPanel = bcs.getMainPanel();
 	   
 	   //checkout book
 	   cbp = new CheckoutBookPanel();
