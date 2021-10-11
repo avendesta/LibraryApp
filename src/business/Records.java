@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-public class MemberRecord implements Serializable {
+public class Records implements Serializable {
 	/**
 	 * 
 	 */
@@ -13,7 +13,7 @@ public class MemberRecord implements Serializable {
 	private List<CheckoutEntry> record;
 	private String libraryMemberId;
 	
-	public MemberRecord(String libraryMemberId, List<CheckoutEntry> record) {
+	public Records(String libraryMemberId, List<CheckoutEntry> record) {
 		this.record = record;
 		this.libraryMemberId = libraryMemberId;
 	}

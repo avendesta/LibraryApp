@@ -12,7 +12,7 @@ import business.Book;
 import business.BookRecord;
 import business.CheckoutEntry;
 import business.LibraryMember;
-import business.MemberRecord;
+import business.Records;
 
 /**
  * This class loads data into the data repository and also sets up the storage
@@ -36,9 +36,9 @@ public class TestData implements Serializable{
 		td.libraryMemberData();
 		td.userData();
 		td.authorData();
-		td.checkoutEntryData();
+//		td.checkoutEntryData();
 		td.memberRecordData();
-		td.bookRecordData();
+//		td.bookRecordData();
 
 		DataAccess da = new DataAccessFacade();
 //		System.out.println(da.readBooksMap());
@@ -118,19 +118,22 @@ public class TestData implements Serializable{
 
 	@SuppressWarnings("serial")
 	public void memberRecordData() {
+		System.out.println("Before: "+allBooks.get(2).getCopy(1).isAvailable());
 		List<CheckoutEntry> entryList1 = new ArrayList<CheckoutEntry>() {
 			{	// for members.get(0)
 				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1), LocalDate.parse("2021-04-07")));
 				add(new CheckoutEntry(members.get(0), allBooks.get(2).getCopy(1), LocalDate.parse("2021-10-07")));
 			}
 		};
-		
+		System.out.println("After: " + allBooks.get(2).getCopy(1).isAvailable());		
+
 		List<CheckoutEntry> entryList2 = new ArrayList<CheckoutEntry>() {
 			{	// for members.get(1)
 				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(2), LocalDate.parse("2021-10-07")));
 				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(2), LocalDate.parse("2021-10-08")));
 			}
 		};
+
 		List<CheckoutEntry> entryList3 = new ArrayList<CheckoutEntry>() {
 			{	// for members.get(2)
 				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1), LocalDate.parse("2021-10-07")));
@@ -139,6 +142,7 @@ public class TestData implements Serializable{
 				add(new CheckoutEntry(members.get(2), allBooks.get(3).getCopy(1), LocalDate.parse("2021-09-07")));
 			}
 		};
+
 		List<CheckoutEntry> entryList4 = new ArrayList<CheckoutEntry>() {
 			{	// for members.get(3)
 				add(new CheckoutEntry(members.get(3), allBooks.get(0).getCopy(2), LocalDate.parse("2021-10-01")));
@@ -148,12 +152,12 @@ public class TestData implements Serializable{
 			}
 		};
 
-		List<MemberRecord> records = new ArrayList<MemberRecord>() {
+		List<Records> records = new ArrayList<Records>() {
 			{
-				add(new MemberRecord("1001", entryList1));
-				add(new MemberRecord("1002", entryList2));
-				add(new MemberRecord("1003", entryList3));
-				add(new MemberRecord("1004", entryList4));
+				add(new Records("1002", entryList2));
+				add(new Records("1001", entryList1));
+				add(new Records("1004", entryList4));
+				add(new Records("1003", entryList3));
 			}
 		};
 		DataAccessFacade.loadMemberRecordsMap(records);
@@ -164,40 +168,52 @@ public class TestData implements Serializable{
 	public void bookRecordData() {
 		List<CheckoutEntry> entryList1 = new ArrayList<CheckoutEntry>() {
 			{	// for allBooks.get(0)
+				allBooks.get(0).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(1), allBooks.get(0).getCopy(2), LocalDate.parse("2021-10-07")));
+				allBooks.get(0).getCopy(1).changeAvailability();
 				add(new CheckoutEntry(members.get(2), allBooks.get(0).getCopy(1), LocalDate.parse("2021-10-07")));
+				allBooks.get(0).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(3), allBooks.get(0).getCopy(2), LocalDate.parse("2021-10-01")));
 			}
 		};
 		
 		List<CheckoutEntry> entryList2 = new ArrayList<CheckoutEntry>() {
 			{	// for allBooks.get(1)
+				allBooks.get(1).getCopy(1).changeAvailability();
 				add(new CheckoutEntry(members.get(0), allBooks.get(1).getCopy(1), LocalDate.parse("2021-04-07")));
+				allBooks.get(1).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(2), allBooks.get(1).getCopy(2), LocalDate.parse("2021-09-07")));
+				allBooks.get(1).getCopy(1).changeAvailability();
 				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(1), LocalDate.parse("2021-10-01")));
+				allBooks.get(1).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(3), allBooks.get(1).getCopy(2), LocalDate.parse("2021-10-04")));
 			}
 		};
 		List<CheckoutEntry> entryList3 = new ArrayList<CheckoutEntry>() {
 			{	// for allBooks.get(2)
+				allBooks.get(2).getCopy(1).changeAvailability();
 				add(new CheckoutEntry(members.get(0), allBooks.get(2).getCopy(1), LocalDate.parse("2021-10-07")));
+				allBooks.get(2).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(1), allBooks.get(2).getCopy(2), LocalDate.parse("2021-10-08")));
+				allBooks.get(2).getCopy(3).changeAvailability();
 				add(new CheckoutEntry(members.get(2), allBooks.get(2).getCopy(3), LocalDate.parse("2020-11-12")));
+				allBooks.get(2).getCopy(2).changeAvailability();
 				add(new CheckoutEntry(members.get(3), allBooks.get(2).getCopy(2), LocalDate.parse("2021-10-09")));
 			}
 		};
 		List<CheckoutEntry> entryList4 = new ArrayList<CheckoutEntry>() {
 			{	// for allBooks.get(3)
+				allBooks.get(3).getCopy(1).changeAvailability();
 				add(new CheckoutEntry(members.get(2), allBooks.get(3).getCopy(1), LocalDate.parse("2021-09-07")));
 			}
 		};
 
 		List<BookRecord> records = new ArrayList<BookRecord>() {
 			{
-				add(new BookRecord("23-11451", entryList1));
 				add(new BookRecord("28-12331", entryList2));
-				add(new BookRecord("32-45348", entryList3));
+				add(new BookRecord("23-11451", entryList1));
 				add(new BookRecord("48-56882", entryList4));
+				add(new BookRecord("32-45348", entryList3));
 			}
 		};
 		DataAccessFacade.loadBookRecordsMap(records);

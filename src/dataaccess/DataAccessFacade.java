@@ -15,7 +15,7 @@ import business.BookCopy;
 import business.BookRecord;
 import business.CheckoutEntry;
 import business.LibraryMember;
-import business.MemberRecord;
+import business.Records;
 import dataaccess.DataAccessFacade.StorageType;
 
 
@@ -75,17 +75,17 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public HashMap<String, MemberRecord> readMemberRecordsMap() {
+	public HashMap<String, Records> readMemberRecordsMap() {
 		//Returns a Map with name/value pairs being
 		//   libraryMemberId -> records of the library member
-		return (HashMap<String, MemberRecord>)readFromStorage(StorageType.MEMBER_RECORDS);
+		return (HashMap<String, Records>)readFromStorage(StorageType.MEMBER_RECORDS);
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<String, MemberRecord> readBookRecordsMap() {
+	public HashMap<String, Records> readBookRecordsMap() {
 		//Returns a Map with name/value pairs being
 		//   ISBN -> records of the book with that ISBN
-		return (HashMap<String, MemberRecord>)readFromStorage(StorageType.BOOK_RECORDS);
+		return (HashMap<String, Records>)readFromStorage(StorageType.BOOK_RECORDS);
 	}
 	
 	//
@@ -107,7 +107,7 @@ public class DataAccessFacade implements DataAccess {
 		loadMemberCheckoutEntryMap(memberList);
 	}
 	
-	public void loadNewMemberRecordsMap(List<MemberRecord> recordsList){
+	public void loadNewMemberRecordsMap(List<Records> recordsList){
 		loadMemberRecordsMap(recordsList);
 	}
 	
@@ -148,8 +148,8 @@ public class DataAccessFacade implements DataAccess {
 		saveToStorage(StorageType.MEMBER_CHECKOUTENTRIES, entries);
 	}
 	
-	static void loadMemberRecordsMap(List<MemberRecord> recordsList) {
-		HashMap<String, MemberRecord> records = new HashMap<String, MemberRecord>();
+	static void loadMemberRecordsMap(List<Records> recordsList) {
+		HashMap<String, Records> records = new HashMap<String, Records>();
 		recordsList.forEach(rs -> records.put(rs.getLibraryMemberId(), rs));
 		saveToStorage(StorageType.MEMBER_RECORDS, records);
 	}

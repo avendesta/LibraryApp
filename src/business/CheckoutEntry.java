@@ -17,7 +17,7 @@ public class CheckoutEntry implements Serializable {
 		this.libraryMember = libraryMember;
 		this.bookCopy = bookCopy;
 		this.checkoutDate = checkoutDate;
-		this.bookCopy.changeAvailability();
+		this.bookCopy.setAvailability(false);
 		dueDate = checkoutDate.plusDays(bookCopy.getBook().getMaxCheckoutLength()); 
 	}
 	public CheckoutEntry(LibraryMember libraryMember, BookCopy bookCopy) {

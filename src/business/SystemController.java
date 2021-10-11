@@ -65,6 +65,7 @@ public class SystemController implements ControllerInterface {
 			return null;
 		return Arrays.toString( allBookList.toArray());
 	}
+	
 	@Override
 	public List<LibraryMember> getAllMembers() {
 		DataAccess da = new DataAccessFacade();
@@ -141,9 +142,14 @@ public class SystemController implements ControllerInterface {
 		// get what is needed to create a checkout entry from memberId and isbn
         DataAccess da = new DataAccessFacade();
 		LocalDate checkoutDate = LocalDate.now();
-		Book book = getBook(isbn);
+		List<Book> allBooks = getAllBooks();
+		Book book = null;
+		for(Book b: allBooks) {
+			if(b.getIsbn().equals(isbn))
+				book = b;
+		}
 		LibraryMember member = getMember(memberId);
-		if(member == null) {
+		if(member == null || book == null) {
 			return false;
 		}
 //		int maxCheckoutLength = book.getMaxCheckoutLength();
@@ -160,14 +166,14 @@ public class SystemController implements ControllerInterface {
 		// now that we got all we need to create a checkout entry
 		availableBookCopy.changeAvailability();
 		// ----- YOU PROBABLY NEED TO UPDATE BOOK DATABASE , BECAUSE ITS BOOKCOPY HAS CHANGED AVAILABILITY ----
-
+		da.loadNewBookMap(allBooks);
 		
 		
 		CheckoutEntry newEntry = new CheckoutEntry(member, availableBookCopy, checkoutDate);
 		// read the hashmap from Serialized files and add the entry to it
-		HashMap<String, MemberRecord> recordHashMap = da.readMemberRecordsMap();
+		HashMap<String, Records> recordHashMap = da.readMemberRecordsMap();
 		recordHashMap.get(memberId).getRecord().add(newEntry);
-		List<MemberRecord> allRecord = new ArrayList<MemberRecord>(recordHashMap.values());
+		List<Records> allRecord = new ArrayList<Records>(recordHashMap.values());
 		da.loadNewMemberRecordsMap(allRecord);
         return true;
 	 }
@@ -207,10 +213,10 @@ public class SystemController implements ControllerInterface {
 	@Override
 	public List<String[]> getMemberRecords(String id){
 		DataAccess da = new DataAccessFacade();
-		HashMap<String, MemberRecord> memberRecordsHashMap = da.readMemberRecordsMap();
+		HashMap<String, Records> memberRecordsHashMap = da.readMemberRecordsMap();
 		System.out.println(Arrays.toString(memberRecordsHashMap.keySet().toArray()) );
 //		System.out.println(memberRecordsHashMap.get(memberRecordsHashMap.keySet().toArray()[0]));
-		MemberRecord memberRecords = memberRecordsHashMap.get(id);
+		Records memberRecords = memberRecordsHashMap.get(id);
 //		System.out.println(memberRecords); // null
 		List<String[]> recordInfo = new ArrayList<String[]>();
 		String[] info;
